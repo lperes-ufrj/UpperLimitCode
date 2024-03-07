@@ -92,7 +92,9 @@
         "bayesian_num_posterior_bdmroot.C": "cpp",
         "bayesian_num_posterior_bdm_hA_BR_b1p1_m05.C": "cpp",
         "bayesian_num_posterior_bdm_hA_BR_b1p5_m05.C": "cpp",
-        "OneSidedFrequentisUpperLimit_bdm_hA_BR_b10_m10..C": "cpp"
+        "OneSidedFrequentisUpperLimit_bdm_hA_BR_b10_m10..C": "cpp",
+        "MacroBoostedDM_Analysis_new.C": "cpp",
+        "MacroBoostedDM_Analysis_test.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
