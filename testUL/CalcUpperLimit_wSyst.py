@@ -139,7 +139,7 @@ for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
         ax2.plot(SoverB, mean_bg)
         ax2.set_xlabel("S/B")
         ax.legend(title = fr'Atm$-\nu$ Flux Unc. {BACKGROUND_SYST_UC*100:.0f}%', loc='upper left')
-        fig.savefig(f'plots/LLR_{s:.0f}_'+infiles[index]+'_new.pdf', format='pdf', dpi=600)
+        fig.savefig(f'plots/LLR_s{s:.0f}_'+infiles[index]+'_new.pdf', format='pdf', dpi=600)
 
 
         
