@@ -673,7 +673,7 @@ void GetBayesianInterval(std::string filename = "workspace_test.root",
    bCalc.SetName("myBC");
    std::cout << "i = " << i << std::endl;
    bCalc.SetConfidenceLevel(i);
-   bCalc.SetLeftSideTailFraction(0);
+   //bCalc.SetLeftSideTailFraction(0);
    // bCalc.SetTestSize(0.05);
    // bCalc.SetIntegrationType("ROOFIT");
 

@@ -16,7 +16,7 @@ Sens_UL_Frenq = ["Sens_Eff_Bkg_hA_BR.txt", "Sens_Eff_Bkg_hA_ESF.txt", "Sens_Eff_
 def readtxt(infile_array):
     listloaded = []
     for infile in infile_array:
-        listloaded.append(np.loadtxt(infile, usecols=(3), skiprows=1))
+        listloaded.append(np.loadtxt(infile, usecols=(4), skiprows=1))
     return listloaded
 
 Sens_UL = readtxt(Sens_UL_Frenq)
@@ -69,7 +69,7 @@ minx,maxx = ax1.get_xlim()
 plt.text(5.5,5e-6,"DUNE PRELIMINARY", alpha=0.7)
 
 ax1.minorticks_off()
-ax1.legend(title=r'$\gamma=1.1$',fontsize = 12, frameon=True, loc='lower right',ncols=2)
+ax1.legend(title=r'$\gamma=1.1$',fontsize = 12, frameon=True, loc='lower right')
 plt.tight_layout()
 plt.savefig('Last_Sensit_b1p1'+str(time.strftime("%Y%m%d"))+'.pdf', format='pdf', dpi=600)
 plt.show()

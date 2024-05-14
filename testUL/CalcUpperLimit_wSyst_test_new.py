@@ -8,7 +8,8 @@ from scipy.stats import norm
 from scipy.integrate import nquad 
 
 BACKGROUND_SYST_UC = 0.3
-N_THROWS=10000
+EFF_SYST_UC = 0.1
+N_THROWS=100000
 
 # Number of target Argon nuclei and livetime of DUNE
 NA_dune = 4 * 1.5e32             # 40 kton
@@ -31,8 +32,8 @@ def readtxt(infile_array):
 
 #poi = 0 # parameter of interest ===> g_Z'^8 
 
-def li(d,s,b,bi):#, eff, effi):
-    return poisson.pmf(d,b+s)*norm.pdf(bi,b,BACKGROUND_SYST_UC*b)#*norm.pdf(effi,eff,0.1*eff)#*norm.pdf(num_targets,NA_dune,0.05*NA_dune)
+def li(d,s,b,bi, eff, effi):
+    return poisson.pmf(d,b+s)*norm.pdf(bi,b,BACKGROUND_SYST_UC*b)*norm.pdf(effi,eff,0.1*eff)#*norm.pdf(num_targets,NA_dune,0.05*NA_dune)
 
 optimals = readtxt(infiles) # read values from the optimal cuts
 #print(optimals)
@@ -61,18 +62,19 @@ for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
         d=round(b)
         for p in range(N_THROWS):
             b_tmp = round(np.random.normal(b,BACKGROUND_SYST_UC*b))
+            eff_tmp = np.random.normal(eff, EFF_SYST_UC*eff)
             #eff_tmp = np.random.normal(eff,0.1*eff)
-            prob_h0 = li(d,0.,b,b_tmp)#,eff,eff_tmp)
+            prob_h0 = li(d,0.,b,b_tmp, eff, eff_tmp)#,eff,eff_tmp)
             h0.append([b_tmp,prob_h0])
 
         for p in range(N_THROWS):
             b_tmp = round(np.random.normal(b,BACKGROUND_SYST_UC*b))
-            prob_h1 = li(d,0.,b,b_tmp)#,eff,eff_tmp)
+            prob_h1 = li(d,0.,b,b_tmp,eff,eff_tmp)
             h1.append([b_tmp,prob_h1])
             
         for p in range(N_THROWS):
             b_tmp = round(np.random.normal(b,BACKGROUND_SYST_UC*b))
-            prob_h2 = li(d,s,b,b_tmp)
+            prob_h2 = li(d,s,b,b_tmp,eff,eff_tmp)
             h2.append([b_tmp+s,prob_h2])
             
             

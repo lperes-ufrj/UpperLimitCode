@@ -94,7 +94,19 @@
         "bayesian_num_posterior_bdm_hA_BR_b1p5_m05.C": "cpp",
         "OneSidedFrequentisUpperLimit_bdm_hA_BR_b10_m10..C": "cpp",
         "MacroBoostedDM_Analysis_new.C": "cpp",
-        "MacroBoostedDM_Analysis_test.C": "cpp"
+        "MacroBoostedDM_Analysis_test.C": "cpp",
+        "OneSidedFrequentisUpperLimit_bdm_hA_BR_b1p1_m05.C": "cpp",
+        "StandardTestStatDistributionDemo.C": "cpp",
+        "bayesian_num_posterior_bdm_hA_BR_b1p1_m10.C": "cpp",
+        "regex": "cpp",
+        "valarray": "cpp",
+        "bayesian_num_posterior_bdm_hA_BR_b10_m20..C": "cpp",
+        "StandardFeldmanCousinsDemo.C": "cpp",
+        "StandardFrequentistDiscovery.C": "cpp",
+        "HybridStandardForm.C": "cpp",
+        "bayesian_num_posterior_bdm_hA_BR_b1p5_m10.C": "cpp",
+        "bayesian_num_posterior_bdm_hA_BR_b1p1_m40.C": "cpp",
+        "bayesian_num_posterior_bdm_hA_BR_b1p1_m20.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

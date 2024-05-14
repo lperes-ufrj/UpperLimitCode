@@ -44,49 +44,45 @@ print(best_hyp_llh)
 optimals = readtxt(infiles) # read values from the optimal cuts
 print(optimals)
 
+
 for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
 
     OUTPUT_FILE =open("Sens_"+ infiles[index] ,"w")
-    OUTPUT_FILE.write('indexSample\t ExpSigEvts\t ExpBkgEvts\t UpperLimit_gZ^4\n')
+    OUTPUT_FILE.write('indexSample\t indexULtry \t ExpBkgEvts\t ul_prob \t g^4 UL \t nobs \t mu_best \t R_test \t prob_tmp\n')
     for i in range(12): #Each BDM sample gamma and mass value 
 
-        result = np.array([i,s,b,np.sqrt(poi)]) 
-        b = round(optimal_Eff[i][1]) # number of expected Bkg
+        nbkg = round(optimal_Eff[i][1]) # number of expected Bkg
         eff = optimal_Eff[i][0] # Signal Efficiency
-        print(eff)
-        print(b)
-        results = []
-        signalevts_number = np.arange(round(0.3*b),round(3*b),1)
-        higher_prob = poisson.pmf(b,b) #implementing FC upperlimit, highest probability is when you observe the expected number of background interactions
+        #print(eff)
+        #print(nbkg)
+        results_ul = []
+        nobs_evts = np.arange(round(0.3*nbkg),round(2*nbkg),1)
+        ul_tmp=0.0
+        i_ul=-1
+        for nobs in nobs_evts:
+            if nobs <= nbkg:
+                mu_best = 0
+            else:
+                mu_best = nobs - nbkg
+                
+            #higher_prob = poisson_prob(nobs,mu_best,nbkg)
+            higher_prob = poisson.pmf(nobs,mu_best+nbkg)
+            #prob_tmp = poisson_prob(nobs,mu,nbkg)
+            prob_tmp = poisson.pmf(nobs,mu+nbkg)
+            R_test = prob_tmp/higher_prob
 
-        for evt_num in signalevts_number:
-            R_test = poisson.pmf(evt_num,b)/higher_prob #R, ordering principle for FC
-            results.append([evt_num,R_test,poisson.pmf(evt_num,b)])
+            results_ul.append([nobs,mu_best,R_test,prob_tmp])
+        #print(results.sort(lambda results: results[1],reverse=True))
+        results_ul = np.array(results_ul)
+        index = np.flip(np.argsort(results_ul[:,2])) 
 
-        results = np.array(results)
-         #print(results.sort(lambda results: results[1],reverse=True))
-        s=0
-        prob = 0
-        for rlt in results:
-            prob = prob + rlt[2]
-            #print(prob)
-            if prob >= 0.9: #Construct the limit until the sum of probabilities give the CL, i.e., 90% 
-                print(prob,rlt)
-                s = rlt[0]-b #Get the UL for the number of signal events (s)
-                break
-
-        #print(s)
-        #print(NA_dune)
-        #print(livetime_dune)
-        #print(flux_list[i])
-        #print(xsec_list[i])
-        #print(optimal_Eff[i][0])
-        #print(NA_dune*xsec_list[i])
-        #print(livetime_dune*flux_list[i]*optimal_Eff[i][0])
-        #print(NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*optimal_Eff[i][0])
-        poi= s/(NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*optimal_Eff[i][0])  #get the parameter of interest ==> g_Z'^8
-        print(np.sqrt(poi))
-        result = np.array([i,s,b,np.sqrt(poi)]) 
+        for id in range(0, len(index)): 
+            if ul_tmp<=ul:
+                ul_tmp=ul_tmp+results_ul[index[id]][3]
+                i_ul=id
+        
+        poi= math.sqrt((results_ul[i_ul][0]-nbkg)/(NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*optimal_Eff[i][0]))  #get the parameter of interest ==> g_Z'^4
+        result = np.append(np.array([i,i_ul,nbkg,ul_tmp, poi]), results_ul[i_ul])
         np.savetxt(OUTPUT_FILE,result.reshape(1, result.shape[0]), fmt ='%.5e')
 
 print("Finished!")

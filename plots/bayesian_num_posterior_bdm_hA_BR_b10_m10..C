@@ -4,249 +4,55 @@
 void bayesian_num_posterior_bdm_hA_BR_b10_m10.()
 {
 //=========Macro generated from canvas: posterior/
-//=========  (Wed Feb 21 17:05:36 2024) by ROOT version 6.26/10
-   TCanvas *posterior = new TCanvas("posterior", "",10,47,700,500);
-   posterior->Range(-6.23875e-13,-0.1414944,5.624875e-12,1.27345);
+//=========  (Thu Mar 21 15:47:44 2024) by ROOT version 6.28/04
+   TCanvas *posterior = new TCanvas("posterior", "",70,64,700,500);
+   posterior->Range(-5e-13,-0.0001619422,4.5e-12,0.00145748);
    posterior->SetFillColor(0);
    posterior->SetBorderMode(0);
    posterior->SetBorderSize(2);
+   posterior->SetFrameFillStyle(0);
    posterior->SetFrameBorderMode(0);
+   posterior->SetFrameFillStyle(0);
    posterior->SetFrameBorderMode(0);
    
-   TH1D *frame_5648068ccee0__49 = new TH1D("frame_5648068ccee0__49","Posterior probability of parameter \"gZ8\"",100,1e-15,5e-12);
-   frame_5648068ccee0__49->SetBinContent(1,1.131955);
-   frame_5648068ccee0__49->SetMaximum(1.131955);
-   frame_5648068ccee0__49->SetEntries(1);
-   frame_5648068ccee0__49->SetDirectory(0);
-   frame_5648068ccee0__49->SetStats(0);
+   TH1D *frame_5e3e14700d50__4 = new TH1D("frame_5e3e14700d50__4","Posterior probability of parameter \"gZ8\"",100,0,4e-12);
+   frame_5e3e14700d50__4->SetBinContent(1,0.001295538);
+   frame_5e3e14700d50__4->SetMaximum(0.001295538);
+   frame_5e3e14700d50__4->SetEntries(1);
+   frame_5e3e14700d50__4->SetDirectory(nullptr);
+   frame_5e3e14700d50__4->SetStats(0);
 
    Int_t ci;      // for color index setting
    TColor *color; // for color definition with alpha
    ci = TColor::GetColor("#000099");
-   frame_5648068ccee0__49->SetLineColor(ci);
-   frame_5648068ccee0__49->GetXaxis()->SetTitle("#g_{Z'}^{8}");
-   frame_5648068ccee0__49->GetXaxis()->SetLabelFont(42);
-   frame_5648068ccee0__49->GetXaxis()->SetTitleOffset(1);
-   frame_5648068ccee0__49->GetXaxis()->SetTitleFont(42);
-   frame_5648068ccee0__49->GetYaxis()->SetTitle("posterior function");
-   frame_5648068ccee0__49->GetYaxis()->SetLabelFont(42);
-   frame_5648068ccee0__49->GetYaxis()->SetTitleFont(42);
-   frame_5648068ccee0__49->GetZaxis()->SetLabelFont(42);
-   frame_5648068ccee0__49->GetZaxis()->SetTitleOffset(1);
-   frame_5648068ccee0__49->GetZaxis()->SetTitleFont(42);
-   frame_5648068ccee0__49->Draw("FUNC");
+   frame_5e3e14700d50__4->SetLineColor(ci);
+   frame_5e3e14700d50__4->GetXaxis()->SetTitle("#g_{Z'}^{8}");
+   frame_5e3e14700d50__4->GetXaxis()->SetLabelFont(42);
+   frame_5e3e14700d50__4->GetXaxis()->SetTitleOffset(1);
+   frame_5e3e14700d50__4->GetXaxis()->SetTitleFont(42);
+   frame_5e3e14700d50__4->GetYaxis()->SetTitle("posterior function");
+   frame_5e3e14700d50__4->GetYaxis()->SetLabelFont(42);
+   frame_5e3e14700d50__4->GetYaxis()->SetTitleFont(42);
+   frame_5e3e14700d50__4->GetZaxis()->SetLabelFont(42);
+   frame_5e3e14700d50__4->GetZaxis()->SetTitleOffset(1);
+   frame_5e3e14700d50__4->GetZaxis()->SetTitleFont(42);
+   frame_5e3e14700d50__4->Draw("FUNC");
    
-   Double_t posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fx19[104] = {
-   9.916683e-16,
-   1e-15,
-   9.331667e-15,
-   1.766333e-14,
-   2.5995e-14,
-   3.432667e-14,
-   4.265833e-14,
-   5.099e-14,
-   5.932167e-14,
-   6.765333e-14,
-   7.5985e-14,
-   8.431667e-14,
-   9.264833e-14,
-   1.0098e-13,
-   1.093117e-13,
-   1.176433e-13,
-   1.25975e-13,
-   1.343067e-13,
-   1.426383e-13,
-   1.5097e-13,
-   1.593017e-13,
-   1.676333e-13,
-   1.75965e-13,
-   1.842967e-13,
-   1.926283e-13,
-   2.0096e-13,
-   2.092917e-13,
-   2.176233e-13,
-   2.25955e-13,
-   2.342867e-13,
-   2.426183e-13,
-   2.5095e-13,
-   2.592817e-13,
-   2.676133e-13,
-   2.75945e-13,
-   2.842767e-13,
-   2.926083e-13,
-   3.0094e-13,
-   3.092717e-13,
-   3.176033e-13,
-   3.25935e-13,
-   3.342667e-13,
-   3.425983e-13,
-   3.5093e-13,
-   3.592617e-13,
-   3.675933e-13,
-   3.75925e-13,
-   3.842567e-13,
-   3.925883e-13,
-   4.0092e-13,
-   4.092517e-13,
-   4.175833e-13,
-   4.25915e-13,
-   4.342467e-13,
-   4.425783e-13,
-   4.5091e-13,
-   4.592417e-13,
-   4.675733e-13,
-   4.75905e-13,
-   4.842367e-13,
-   4.925683e-13,
-   5.009e-13,
-   5.092317e-13,
-   5.175633e-13,
-   5.25895e-13,
-   5.342267e-13,
-   5.425583e-13,
-   5.5089e-13,
-   5.592217e-13,
-   5.675533e-13,
-   5.75885e-13,
-   5.842167e-13,
-   5.925483e-13,
-   6.0088e-13,
-   6.092117e-13,
-   6.175433e-13,
-   6.25875e-13,
-   6.342067e-13,
-   6.425383e-13,
-   6.5087e-13,
-   6.592017e-13,
-   6.675333e-13,
-   6.75865e-13,
-   6.841967e-13,
-   6.925283e-13,
-   7.0086e-13,
-   7.091917e-13,
-   7.175233e-13,
-   7.25855e-13,
-   7.341867e-13,
-   7.425183e-13,
-   7.5085e-13,
-   7.591817e-13,
-   7.675133e-13,
-   7.75845e-13,
-   7.841767e-13,
-   7.925083e-13,
-   8.0084e-13,
-   8.091717e-13,
-   8.175033e-13,
-   8.25835e-13,
-   8.341667e-13,
-   8.341667e-13,
-   8.34175e-13};
-   Double_t posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fy19[104] = {
-   0,
-   1.042384,
-   1.044385,
-   1.046386,
-   1.048387,
-   1.050222,
-   1.052056,
-   1.053891,
-   1.055553,
-   1.057215,
-   1.058877,
-   1.06036,
-   1.061843,
-   1.063326,
-   1.064625,
-   1.065924,
-   1.067222,
-   1.068331,
-   1.069439,
-   1.070548,
-   1.071461,
-   1.072373,
-   1.073286,
-   1.073998,
-   1.074709,
-   1.075421,
-   1.075926,
-   1.076431,
-   1.076936,
-   1.07723,
-   1.077524,
-   1.077818,
-   1.077897,
-   1.077975,
-   1.078053,
-   1.077911,
-   1.077769,
-   1.077626,
-   1.07726,
-   1.076893,
-   1.076527,
-   1.075932,
-   1.075337,
-   1.074742,
-   1.073917,
-   1.073092,
-   1.072268,
-   1.071208,
-   1.070149,
-   1.06909,
-   1.067793,
-   1.066497,
-   1.065201,
-   1.060375,
-   1.055549,
-   1.050723,
-   0.9639455,
-   0.8771681,
-   0.7903908,
-   0.7026291,
-   0.6148675,
-   0.5271058,
-   0.5250336,
-   0.5229614,
-   0.5208893,
-   0.4345609,
-   0.3482326,
-   0.2619043,
-   0.2613706,
-   0.260837,
-   0.2603033,
-   0.2597181,
-   0.2591328,
-   0.2585475,
-   0.2579107,
-   0.2572739,
-   0.2566371,
-   0.255949,
-   0.2552608,
-   0.2545727,
-   0.2538334,
-   0.2530942,
-   0.2523549,
-   0.2515649,
-   0.250775,
-   0.249985,
-   0.2491448,
-   0.2483047,
-   0.2474645,
-   0.2465747,
-   0.2456849,
-   0.244795,
-   0.2438563,
-   0.2429175,
-   0.2419788,
-   0.2409919,
-   0.2400051,
-   0.2390182,
-   0.2379841,
-   0.2369501,
-   0.235916,
-   0.2941997,
-   0.2941997,
-   0};
-   TGraph *graph = new TGraph(104,posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fx19,posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fy19);
+   Double_t posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fx1[104] = { -1.151515e-17, 0, 1.151515e-14, 2.30303e-14, 3.454545e-14, 4.606061e-14, 5.757576e-14, 6.909091e-14, 8.060606e-14, 9.212121e-14, 1.036364e-13, 1.151515e-13, 1.266667e-13, 1.381818e-13, 1.49697e-13, 1.612121e-13, 1.727273e-13,
+   1.842424e-13, 1.957576e-13, 2.072727e-13, 2.187879e-13, 2.30303e-13, 2.418182e-13, 2.533333e-13, 2.648485e-13, 2.763636e-13, 2.878788e-13, 2.993939e-13, 3.109091e-13, 3.224242e-13, 3.339394e-13, 3.454545e-13, 3.569697e-13,
+   3.684848e-13, 3.8e-13, 3.915152e-13, 4.030303e-13, 4.145455e-13, 4.260606e-13, 4.375758e-13, 4.490909e-13, 4.606061e-13, 4.721212e-13, 4.836364e-13, 4.951515e-13, 5.066667e-13, 5.181818e-13, 5.29697e-13, 5.412121e-13,
+   5.527273e-13, 5.642424e-13, 5.757576e-13, 5.872727e-13, 5.987879e-13, 6.10303e-13, 6.218182e-13, 6.333333e-13, 6.448485e-13, 6.563636e-13, 6.678788e-13, 6.793939e-13, 6.909091e-13, 7.024242e-13, 7.139394e-13, 7.254545e-13,
+   7.369697e-13, 7.484848e-13, 7.6e-13, 7.715152e-13, 7.830303e-13, 7.945455e-13, 8.060606e-13, 8.175758e-13, 8.290909e-13, 8.406061e-13, 8.521212e-13, 8.636364e-13, 8.751515e-13, 8.866667e-13, 8.981818e-13, 9.09697e-13,
+   9.212121e-13, 9.327273e-13, 9.442424e-13, 9.557576e-13, 9.672727e-13, 9.787879e-13, 9.90303e-13, 1.001818e-12, 1.013333e-12, 1.024848e-12, 1.036364e-12, 1.047879e-12, 1.059394e-12, 1.070909e-12, 1.082424e-12, 1.093939e-12,
+   1.105455e-12, 1.11697e-12, 1.128485e-12, 1.14e-12, 1.151515e-12, 1.151515e-12, 1.151527e-12 };
+   Double_t posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fy1[104] = { 0, 0.001233845, 0.001233835, 0.001233825, 0.001233815, 0.001233616, 0.001233246, 0.001232877, 0.001232488, 0.00123176, 0.001231032, 0.001230303, 0.001229369, 0.001228285, 0.001227201, 0.00122608, 0.001224644,
+   0.001223207, 0.001221771, 0.001220115, 0.001218331, 0.001216547, 0.001214709, 0.001212584, 0.001210458, 0.001208333, 0.001205978, 0.001203518, 0.001201057, 0.001198528, 0.00119574, 0.001192953, 0.001190165,
+   0.001187143, 0.001184037, 0.001180932, 0.001177745, 0.001174331, 0.001170917, 0.001167503, 0.001163854, 0.001160142, 0.00115643, 0.001152628, 0.001148629, 0.00114463, 0.001140632, 0.001136402, 0.00113213,
+   0.001127858, 0.001123489, 0.001118954, 0.00111442, 0.001109885, 0.001105123, 0.001100335, 0.001095547, 0.001090647, 0.001085595, 0.001080543, 0.001075491, 0.001070131, 0.001064754, 0.001059378, 0.001053774,
+   0.001047918, 0.001042062, 0.001036207, 0.001029626, 0.001023046, 0.001016465, 0.001009342, 0.001001731, 0.0009941194, 0.0009864384, 0.0009775071, 0.0009685758, 0.0009596445, 0.0009498115, 0.0009393226, 0.0009288337,
+   0.0009181667, 0.000905986, 0.0008938053, 0.0008816245, 0.0008683616, 0.0008544674, 0.0008405732, 0.000826426, 0.000810929, 0.000795432, 0.000779935, 0.000763491, 0.0007466101, 0.0007297291, 0.0007126255, 0.0006946865,
+   0.0006767475, 0.0006588085, 0.0006403867, 0.0006217924, 0.0006048129, 0.0006048129, 0 };
+   TGraph *graph = new TGraph(104,posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fx1,posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fy1);
    graph->SetName("posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]");
    graph->SetTitle("Projection of posteriorfunction_from_nll_model_data_with_constr_approx");
 
@@ -258,251 +64,41 @@ void bayesian_num_posterior_bdm_hA_BR_b10_m10.()
    graph->SetLineColor(ci);
    graph->SetLineWidth(3);
    
-   TH1F *Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19 = new TH1F("Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19","Projection of posteriorfunction_from_nll_model_data_with_constr_approx",104,0,9.174933e-13);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->SetMinimum(0);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->SetMaximum(1.185858);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->SetDirectory(0);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->SetStats(0);
+   TH1F *Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1 = new TH1F("Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1","Projection of posteriorfunction_from_nll_model_data_with_constr_approx",104,-1.151653e-13,1.26668e-12);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->SetMinimum(0);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->SetMaximum(0.00135723);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->SetDirectory(nullptr);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->SetStats(0);
 
    ci = TColor::GetColor("#000099");
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->SetLineColor(ci);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->GetXaxis()->SetLabelFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->GetXaxis()->SetTitleOffset(1);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->GetXaxis()->SetTitleFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->GetYaxis()->SetLabelFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->GetYaxis()->SetTitleFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->GetZaxis()->SetLabelFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->GetZaxis()->SetTitleOffset(1);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB19->GetZaxis()->SetTitleFont(42);
-   graph->SetHistogram(Graph_posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]19);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->SetLineColor(ci);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->GetXaxis()->SetLabelFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->GetXaxis()->SetTitleOffset(1);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->GetXaxis()->SetTitleFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->GetYaxis()->SetLabelFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->GetYaxis()->SetTitleFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->GetZaxis()->SetLabelFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->GetZaxis()->SetTitleOffset(1);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB1->GetZaxis()->SetTitleFont(42);
+   graph->SetHistogram(Graph_posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]1);
    
    graph->Draw("f");
    
-   Double_t posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fx20[111] = {
-   -4.903999e-14,
-   -4.899e-14,
-   1e-15,
-   5.099e-14,
-   1.0098e-13,
-   1.5097e-13,
-   2.0096e-13,
-   2.5095e-13,
-   3.0094e-13,
-   3.5093e-13,
-   4.0092e-13,
-   4.25915e-13,
-   4.5091e-13,
-   4.75905e-13,
-   5.009e-13,
-   5.25895e-13,
-   5.5089e-13,
-   6.0088e-13,
-   6.5087e-13,
-   7.0086e-13,
-   7.5085e-13,
-   8.0084e-13,
-   8.25835e-13,
-   8.5083e-13,
-   8.75825e-13,
-   9.0082e-13,
-   9.5081e-13,
-   1.0008e-12,
-   1.05079e-12,
-   1.10078e-12,
-   1.15077e-12,
-   1.20076e-12,
-   1.25075e-12,
-   1.30074e-12,
-   1.35073e-12,
-   1.40072e-12,
-   1.45071e-12,
-   1.5007e-12,
-   1.55069e-12,
-   1.60068e-12,
-   1.65067e-12,
-   1.70066e-12,
-   1.75065e-12,
-   1.80064e-12,
-   1.85063e-12,
-   1.90062e-12,
-   1.95061e-12,
-   2.0006e-12,
-   2.05059e-12,
-   2.10058e-12,
-   2.15057e-12,
-   2.20056e-12,
-   2.25055e-12,
-   2.30054e-12,
-   2.35053e-12,
-   2.40052e-12,
-   2.45051e-12,
-   2.5005e-12,
-   2.55049e-12,
-   2.60048e-12,
-   2.65047e-12,
-   2.70046e-12,
-   2.75045e-12,
-   2.80044e-12,
-   2.85043e-12,
-   2.90042e-12,
-   2.95041e-12,
-   3.0004e-12,
-   3.05039e-12,
-   3.10038e-12,
-   3.15037e-12,
-   3.20036e-12,
-   3.25035e-12,
-   3.30034e-12,
-   3.35033e-12,
-   3.40032e-12,
-   3.45031e-12,
-   3.5003e-12,
-   3.55029e-12,
-   3.60028e-12,
-   3.65027e-12,
-   3.70026e-12,
-   3.75025e-12,
-   3.80024e-12,
-   3.85023e-12,
-   3.90022e-12,
-   3.95021e-12,
-   4.0002e-12,
-   4.05019e-12,
-   4.10018e-12,
-   4.15017e-12,
-   4.20016e-12,
-   4.25015e-12,
-   4.30014e-12,
-   4.35013e-12,
-   4.40012e-12,
-   4.45011e-12,
-   4.5001e-12,
-   4.55009e-12,
-   4.60008e-12,
-   4.65007e-12,
-   4.70006e-12,
-   4.75005e-12,
-   4.80004e-12,
-   4.85003e-12,
-   4.90002e-12,
-   4.95001e-12,
-   5e-12,
-   5e-12,
-   5.04999e-12,
-   5.05004e-12};
-   Double_t posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fy20[111] = {
-   0,
-   1.042384,
-   1.042384,
-   1.053891,
-   1.063326,
-   1.070548,
-   1.075421,
-   1.077818,
-   1.077626,
-   1.074742,
-   1.06909,
-   1.065201,
-   1.050723,
-   0.7903908,
-   0.5271058,
-   0.5208893,
-   0.2619043,
-   0.2585475,
-   0.2545727,
-   0.249985,
-   0.244795,
-   0.2390182,
-   0.235916,
-   0.4346159,
-   0.8741235,
-   0.8573666,
-   0.8223154,
-   0.785411,
-   0.7469034,
-   0.7070923,
-   0.6662527,
-   0.6247059,
-   0.5827726,
-   0.5407757,
-   0.4990503,
-   0.4579115,
-   0.4176652,
-   0.3786069,
-   0.340993,
-   0.3051051,
-   0.2710697,
-   0.2391236,
-   0.209379,
-   0.1819295,
-   0.1568232,
-   0.1340126,
-   0.1136622,
-   0.09551664,
-   0.07953093,
-   0.06564089,
-   0.05365426,
-   0.04343037,
-   0.0348089,
-   0.02761686,
-   0.02168352,
-   0.01684875,
-   0.01295191,
-   0.009849035,
-   0.007407467,
-   0.00550953,
-   0.004052197,
-   0.002946635,
-   0.002118223,
-   0.001505091,
-   0.001056915,
-   0.0007332829,
-   0.0005025041,
-   0.0003399917,
-   0.0002270398,
-   0.0001494959,
-   9.711434e-05,
-   6.213547e-05,
-   3.914734e-05,
-   2.427341e-05,
-   1.480339e-05,
-   8.879139e-06,
-   5.234141e-06,
-   3.032146e-06,
-   1.725967e-06,
-   9.653512e-07,
-   5.305762e-07,
-   2.866091e-07,
-   1.522065e-07,
-   7.948936e-08,
-   4.081641e-08,
-   2.064195e-08,
-   1.027643e-08,
-   5.037893e-09,
-   2.433294e-09,
-   1.158081e-09,
-   5.432114e-10,
-   2.511417e-10,
-   1.144392e-10,
-   5.135705e-11,
-   2.272584e-11,
-   9.900345e-12,
-   4.247884e-12,
-   1.793974e-12,
-   7.435884e-13,
-   3.010325e-13,
-   1.211541e-13,
-   4.716105e-14,
-   1.802379e-14,
-   6.690259e-15,
-   2.410344e-15,
-   8.352955e-16,
-   2.765469e-16,
-   8.964379e-17,
-   8.964379e-17,
-   8.964379e-17,
-   0};
-   graph = new TGraph(111,posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fx20,posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fy20);
+   Double_t posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fx2[106] = { -4.004e-14, -4e-14, 0, 4e-14, 8e-14, 1.2e-13, 1.6e-13, 2e-13, 2.4e-13, 2.8e-13, 3.2e-13, 3.6e-13, 4e-13, 4.4e-13, 4.8e-13, 5.2e-13, 5.6e-13,
+   6e-13, 6.4e-13, 6.8e-13, 7.2e-13, 7.6e-13, 8e-13, 8.4e-13, 8.8e-13, 9.2e-13, 9.6e-13, 1e-12, 1.04e-12, 1.08e-12, 1.12e-12, 1.16e-12, 1.2e-12,
+   1.24e-12, 1.28e-12, 1.32e-12, 1.36e-12, 1.4e-12, 1.44e-12, 1.48e-12, 1.52e-12, 1.56e-12, 1.6e-12, 1.64e-12, 1.68e-12, 1.72e-12, 1.76e-12, 1.8e-12, 1.84e-12,
+   1.88e-12, 1.92e-12, 1.96e-12, 2e-12, 2.04e-12, 2.08e-12, 2.12e-12, 2.16e-12, 2.2e-12, 2.24e-12, 2.28e-12, 2.32e-12, 2.36e-12, 2.4e-12, 2.44e-12, 2.48e-12,
+   2.52e-12, 2.56e-12, 2.6e-12, 2.64e-12, 2.68e-12, 2.72e-12, 2.76e-12, 2.8e-12, 2.84e-12, 2.88e-12, 2.92e-12, 2.96e-12, 3e-12, 3.04e-12, 3.08e-12, 3.12e-12,
+   3.16e-12, 3.2e-12, 3.24e-12, 3.28e-12, 3.32e-12, 3.36e-12, 3.4e-12, 3.44e-12, 3.48e-12, 3.52e-12, 3.56e-12, 3.6e-12, 3.64e-12, 3.68e-12, 3.72e-12, 3.76e-12,
+   3.8e-12, 3.84e-12, 3.88e-12, 3.92e-12, 3.96e-12, 4e-12, 4e-12, 4.04e-12, 4.04004e-12 };
+   Double_t posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fy2[106] = { 0, 0.001233845, 0.001233845, 0.001233811, 0.001232526, 0.001229997, 0.001226231, 0.001221242, 0.001215045, 0.001207661, 0.001199115, 0.001189432, 0.001178643, 0.001166784, 0.00115389, 0.00114, 0.001125159,
+   0.001109408, 0.001092775, 0.001075225, 0.001056548, 0.001036207, 0.001013348, 0.0009869085, 0.000955884, 0.0009194489, 0.0008771369, 0.0008288729, 0.0007750412, 0.0007164021, 0.0006540878, 0.0005894971, 0.0005241613,
+   0.0004596197, 0.000397304, 0.0003384448, 0.0002840028, 0.0002346957, 0.0001909023, 0.0001527866, 0.0001202569, 9.306426e-05, 7.076389e-05, 5.283863e-05, 3.871727e-05, 2.781645e-05, 1.956901e-05, 1.346977e-05, 9.047403e-06,
+   5.916428e-06, 3.752412e-06, 2.299707e-06, 1.353449e-06, 7.598528e-07, 4.038925e-07, 2.015609e-07, 9.363076e-08, 4.014787e-08, 1.576573e-08, 5.631316e-09, 1.818312e-09, 5.278989e-10, 1.374025e-10, 3.176183e-11, 6.592406e-12,
+   1.213137e-12, 1.9825e-13, 2.862342e-14, 3.697102e-15, 4.216321e-16, 4.264152e-17, 3.828672e-18, 3.046926e-19, 2.154566e-20, 1.23791e-21, 6.744318e-23, 3.258054e-24, 1.396757e-25, 6.423884e-27, 2.250132e-28, 7.033572e-30,
+   1.96387e-31, 4.90276e-33, 1.095439e-34, 2.324366e-36, 4.212175e-38, 6.857481e-40, 1.003959e-41, 1.323117e-43, 1.571263e-45, 1.68308e-47, 1.627804e-49, 1.422897e-51, 1.125285e-53, 8.059147e-56, 5.232166e-58, 3.082227e-60,
+   1.64915e-62, 8.022069e-65, 3.551061e-67, 1.431813e-69, 5.263539e-72, 1.488048e-73, 1.488048e-73, 1.488048e-73, 0 };
+   graph = new TGraph(106,posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fx2,posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]_fy2);
    graph->SetName("posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]");
    graph->SetTitle("Projection of posteriorfunction_from_nll_model_data_with_constr_approx");
    graph->SetFillStyle(1000);
@@ -511,46 +107,46 @@ void bayesian_num_posterior_bdm_hA_BR_b10_m10.()
    graph->SetLineColor(ci);
    graph->SetLineWidth(3);
    
-   TH1F *Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20 = new TH1F("Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20","Projection of posteriorfunction_from_nll_model_data_with_constr_approx",111,-5.58948e-13,5.559948e-12);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->SetMinimum(0);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->SetMaximum(1.1856);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->SetDirectory(0);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->SetStats(0);
+   TH1F *Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2 = new TH1F("Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2","Projection of posteriorfunction_from_nll_model_data_with_constr_approx",106,-4.48048e-13,4.448048e-12);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->SetMinimum(0);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->SetMaximum(0.00135723);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->SetDirectory(nullptr);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->SetStats(0);
 
    ci = TColor::GetColor("#000099");
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->SetLineColor(ci);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->GetXaxis()->SetLabelFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->GetXaxis()->SetTitleOffset(1);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->GetXaxis()->SetTitleFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->GetYaxis()->SetLabelFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->GetYaxis()->SetTitleFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->GetZaxis()->SetLabelFont(42);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->GetZaxis()->SetTitleOffset(1);
-   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB20->GetZaxis()->SetTitleFont(42);
-   graph->SetHistogram(Graph_posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]20);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->SetLineColor(ci);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->GetXaxis()->SetLabelFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->GetXaxis()->SetTitleOffset(1);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->GetXaxis()->SetTitleFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->GetYaxis()->SetLabelFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->GetYaxis()->SetTitleFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->GetZaxis()->SetLabelFont(42);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->GetZaxis()->SetTitleOffset(1);
+   Graph_posteriorfunction_from_nll_model_data_with_constr_approx_NormoBgZ8cB2->GetZaxis()->SetTitleFont(42);
+   graph->SetHistogram(Graph_posteriorfunction_from_nll_model_data_with_constr_approx_Norm[gZ8]2);
    
    graph->Draw("l");
    
-   TH1D *frame_5648068ccee0__50 = new TH1D("frame_5648068ccee0__50","Posterior probability of parameter \"gZ8\"",100,1e-15,5e-12);
-   frame_5648068ccee0__50->SetBinContent(1,1.131955);
-   frame_5648068ccee0__50->SetMaximum(1.131955);
-   frame_5648068ccee0__50->SetEntries(1);
-   frame_5648068ccee0__50->SetDirectory(0);
-   frame_5648068ccee0__50->SetStats(0);
+   TH1D *frame_5e3e14700d50__5 = new TH1D("frame_5e3e14700d50__5","Posterior probability of parameter \"gZ8\"",100,0,4e-12);
+   frame_5e3e14700d50__5->SetBinContent(1,0.001295538);
+   frame_5e3e14700d50__5->SetMaximum(0.001295538);
+   frame_5e3e14700d50__5->SetEntries(1);
+   frame_5e3e14700d50__5->SetDirectory(nullptr);
+   frame_5e3e14700d50__5->SetStats(0);
 
    ci = TColor::GetColor("#000099");
-   frame_5648068ccee0__50->SetLineColor(ci);
-   frame_5648068ccee0__50->GetXaxis()->SetTitle("#g_{Z'}^{8}");
-   frame_5648068ccee0__50->GetXaxis()->SetLabelFont(42);
-   frame_5648068ccee0__50->GetXaxis()->SetTitleOffset(1);
-   frame_5648068ccee0__50->GetXaxis()->SetTitleFont(42);
-   frame_5648068ccee0__50->GetYaxis()->SetTitle("posterior function");
-   frame_5648068ccee0__50->GetYaxis()->SetLabelFont(42);
-   frame_5648068ccee0__50->GetYaxis()->SetTitleFont(42);
-   frame_5648068ccee0__50->GetZaxis()->SetLabelFont(42);
-   frame_5648068ccee0__50->GetZaxis()->SetTitleOffset(1);
-   frame_5648068ccee0__50->GetZaxis()->SetTitleFont(42);
-   frame_5648068ccee0__50->Draw("AXISSAME");
+   frame_5e3e14700d50__5->SetLineColor(ci);
+   frame_5e3e14700d50__5->GetXaxis()->SetTitle("#g_{Z'}^{8}");
+   frame_5e3e14700d50__5->GetXaxis()->SetLabelFont(42);
+   frame_5e3e14700d50__5->GetXaxis()->SetTitleOffset(1);
+   frame_5e3e14700d50__5->GetXaxis()->SetTitleFont(42);
+   frame_5e3e14700d50__5->GetYaxis()->SetTitle("posterior function");
+   frame_5e3e14700d50__5->GetYaxis()->SetLabelFont(42);
+   frame_5e3e14700d50__5->GetYaxis()->SetTitleFont(42);
+   frame_5e3e14700d50__5->GetZaxis()->SetLabelFont(42);
+   frame_5e3e14700d50__5->GetZaxis()->SetTitleOffset(1);
+   frame_5e3e14700d50__5->GetZaxis()->SetTitleFont(42);
+   frame_5e3e14700d50__5->Draw("AXISSAME");
    
    TPaveText *pt = new TPaveText(0.1619198,0.9344958,0.8380802,0.995,"blNDC");
    pt->SetName("title");

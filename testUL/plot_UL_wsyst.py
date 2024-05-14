@@ -5,7 +5,7 @@ import math
 import time
 
 
-prob_hA_BR = np.loadtxt('Sens_Eff_Bkg_hA_BR.txt', usecols=(0,1,7,8), skiprows=1)
+prob_hA_BR = np.loadtxt('Sens_Eff_Bkg_hA_BR.txt', usecols=(0,1,7,8), skiprows=2)
 
 
 ################################################################
@@ -21,7 +21,7 @@ plt.rc('font', size=15)
 print(prob_hA_BR[:,3][prob_hA_BR[:,3]>1])
 #ax1.plot(MA[:4],conser_res[:4], '--', label='conservative',color='grey')
 #ax1.plot(MA[:4],opt_res[:4], '--', label='optimistic',color='blue')
-ax1.hist(prob_hA_BR[:,3], bins = 300)
+ax1.hist(prob_hA_BR[:,3], bins = 100)
 
 
 

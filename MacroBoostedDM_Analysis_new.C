@@ -34,6 +34,7 @@
 #include "RooStats/RooStatsUtils.h"
 #include "RooStats/ProfileLikelihoodTestStat.h"
 #include "RooStats/SimpleInterval.h"
+#include "RooStats/SamplingDistPlot.h"
 
 bool useProof = false; // flag to control whether to use Proof
 int nworkers = 0;      // number of workers (default use all available cores)
@@ -56,7 +57,7 @@ void MakeWorkspace(double SigEff, double nBkg, double flux_value, double xsec_va
    gz8_samples.insert(pair<string, double>("b1p5_m20", 2e-11));
    gz8_samples.insert(pair<string, double>("b1p5_m40", 5e-11));
    gz8_samples.insert(pair<string, double>("b10_m05", 2e-12));
-   gz8_samples.insert(pair<string, double>("b10_m10", 5e-12));
+   gz8_samples.insert(pair<string, double>("b10_m10", 4e-12));
    gz8_samples.insert(pair<string, double>("b10_m20", 7e-12));
    gz8_samples.insert(pair<string, double>("b10_m40", 4.5e-11));
 
@@ -64,7 +65,7 @@ void MakeWorkspace(double SigEff, double nBkg, double flux_value, double xsec_va
    RooWorkspace *pWs = new RooWorkspace("myWS");
 
    // observable: number of events
-   RooRealVar n("n", "n", nBkg,0.1*nBkg,10*nBkg);
+   RooRealVar n("n", "n", 0);
    pWs->import(n);
 
    // exposure time of the detector
@@ -72,13 +73,17 @@ void MakeWorkspace(double SigEff, double nBkg, double flux_value, double xsec_va
    pWs->import(expo);
 
    // number of targets in 40kt (argons nuclei) with systematics
-   RooRealVar numtargets("numtargets", "number of targets", 6e32,4e32,8e32);
-   pWs->import(numtargets);
-   pWs->factory("Gaussian::constr_numtargets(glob_numtargets[6e32,4e32,8e32],numtargets, 3e31)"); // 5% uncertainty
-
+   RooRealVar numtargets_nom("numtargets_nom", "number of targets", 6e32);
+   RooRealVar numtargets_syst("numtargets_syst", "numtargets_syst", 1.,0.9,1.1);
+   RooRealVar glob_numtargets("glob_numtargets", "glob_numtargets", 1.,0.,3.);
+   pWs->import(numtargets_nom);
+   pWs->import(numtargets_syst);
+   pWs->import(glob_numtargets);
+   pWs->factory("prod::numtargets(numtargets_nom,numtargets_syst)");
+   pWs->factory("Gaussian::constr_numtargets(glob_numtargets,numtargets_syst,0.05)"); // 5% of systematic unc. in the fiducial volume just as LBL analysis
 
    // coupling constant (g_Z')^8 - parameter of interest
-   RooRealVar gZ8("gZ8", "#g_{Z'}^{8}", 0, 0, gz8_samples[sample]);
+   RooRealVar gZ8("gZ8", "#g_{Z'}^{8}", 0., 0., gz8_samples[sample]);
    pWs->import(gZ8);
 
    // cross-section \chi-Ar considering (g_Z'=1)
@@ -90,15 +95,15 @@ void MakeWorkspace(double SigEff, double nBkg, double flux_value, double xsec_va
    pWs->import(flux);
 
    // selection efficiency * acceptance with systematics
-   RooRealVar eff("eff", "eff", SigEff, 0.01*SigEff, 10*SigEff);
-   RooRealVar sigma_eff("sigma_eff","sigma_eff",0.1*SigEff,0.005*SigEff, 5*SigEff);
-   RooRealVar glob_eff("glob_eff","glob_eff",SigEff,0.1*SigEff,10*SigEff);
-   pWs->import(eff);
-   pWs->import(sigma_eff);
+   RooRealVar eff_nom("eff_nom", "eff_nom", SigEff);
+   RooRealVar eff_syst("eff_syst", "eff_syst", 1.,0.8,1.2);  
+   RooRealVar glob_eff("glob_eff", "glob_eff", 1., 0., 3.);
+   pWs->import(eff_nom);
+   pWs->import(eff_syst);
    pWs->import(glob_eff);
 
-
-   pWs->factory("Gaussian::constr_eff(glob_eff,eff, sigma_eff)"); // 10% uncertainty
+   pWs->factory("prod::eff(eff_nom,eff_syst)");
+   pWs->factory("Gaussian::constr_eff(glob_eff,eff_syst,0.1)"); // 10% of systematic unc. in the signal efficiency
 
    // signal yield
    pWs->factory("prod::nsig(expo,numtargets,flux,xsec,eff,gZ8)");
@@ -107,13 +112,15 @@ void MakeWorkspace(double SigEff, double nBkg, double flux_value, double xsec_va
    pWs->factory("Uniform::prior(gZ8)");
 
    // background yield with systematics
-   RooRealVar nbkg("nbkg", "nbkg", nBkg);
-   RooRealVar sigma_nBkg("sigma_nBkg", "sigma_nBkg", 0.40*nBkg, 0.04*nBkg, 4*nBkg);
-   RooRealVar glob_nbkg("glob_nbkg", "glob_nbkg", nBkg,0.1*nBkg,10*nBkg);
-   pWs->import(nbkg);
-   pWs->import(sigma_nBkg);
+   RooRealVar nbkg_nom("nbkg_nom", "nbkg_nom", nBkg);
+   RooRealVar nbkg_syst("nbkg_syst", "nbkg_syst", 1.,0.4,1.6); 
+   RooRealVar glob_nbkg("glob_nbkg", "glob_nbkg", 1.,0.,3.); 
+   pWs->import(nbkg_nom);
+   pWs->import(nbkg_syst);
    pWs->import(glob_nbkg);
-   pWs->factory("Gaussian::constr_nbkg(glob_nbkg,nbkg,sigma_nBkg)"); // 40% uncertainty
+
+   pWs->factory("prod::nbkg(nbkg_nom,nbkg_syst,numtargets_syst)");
+   pWs->factory("Gaussian::constr_nbkg(glob_nbkg,nbkg_syst, 0.3)"); // 30% of systematic unc. in the atmospheric neutrino events expected
 
    // full event yield
    pWs->factory("sum::yield(nsig,nbkg)");
@@ -153,29 +160,29 @@ void MakeWorkspace(double SigEff, double nBkg, double flux_value, double xsec_va
 
    // create set of nuisance parameters
    RooArgSet nuis("nuis");
-   nuis.add(*pWs->var("beta_eff"));
-   nuis.add(*pWs->var("beta_nbkg"));
+   nuis.add(*pWs->var("numtargets_syst"));
+   nuis.add(*pWs->var("eff_syst"));
+   nuis.add(*pWs->var("nbkg_syst"));
 
    // fix all other variables in model:
    // everything except observables, POI, and nuisance parameters
    // must be constant
-   pWs->var("numtargets")->setConstant(true);
+   pWs->var("numtargets_nom")->setConstant(true);
    pWs->var("eff_nom")->setConstant(true);
    pWs->var("flux")->setConstant(true);
    pWs->var("xsec")->setConstant(true);
    pWs->var("nbkg_nom")->setConstant(true);
    pWs->var("expo")->setConstant(true);
-   pWs->var("eff_kappa")->setConstant(true);
-   pWs->var("nbkg_kappa")->setConstant(true);
+
    RooArgSet fixed("fixed");
-   fixed.add(*pWs->var("numtargets"));
+   fixed.add(*pWs->var("numtargets_nom"));
    fixed.add(*pWs->var("eff_nom"));
    fixed.add(*pWs->var("nbkg_nom"));
    fixed.add(*pWs->var("expo"));
    fixed.add(*pWs->var("flux"));
    fixed.add(*pWs->var("xsec"));
-   fixed.add(*pWs->var("eff_kappa"));
-   fixed.add(*pWs->var("nbkg_kappa"));
+   
+
 
    // create signal+background Model Config
    RooStats::ModelConfig sbHypo("SbHypo");
@@ -245,13 +252,13 @@ void MakeWorkspace(double SigEff, double nBkg, double flux_value, double xsec_va
 // -------------------------------------------------------
 // The actual macro
 
-void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspace_test.root", const char *workspaceName = "myWS",
-                                                const char *modelConfigName = "SbHypo",
+double OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspace_test.root", const char *workspaceName = "myWS",
+                                                const char *modelConfigName = "BHypo",
                                                 const char *dataName = "data")
 {
 
    double confidenceLevel = 0.90;
-   int nPointsToScan = 300;
+   int nPointsToScan = 100;
    int nToyMC = 700;
 
    // Try to open the file
@@ -261,7 +268,7 @@ void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspac
    if (!file)
    {
       cout << "StandardRooStatsDemoMacro: Input file " << filename << " is not found" << endl;
-      return;
+      return 0;
    }
 
    // -------------------------------------------------------
@@ -272,7 +279,7 @@ void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspac
    if (!w)
    {
       cout << "workspace not found" << endl;
-      return;
+      return 0;
    }
 
    // get the modelConfig out of the file
@@ -286,7 +293,7 @@ void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspac
    {
       w->Print();
       cout << "data or ModelConfig was not found" << endl;
-      return;
+      return 0;
    }
 
    // -------------------------------------------------------
@@ -536,8 +543,9 @@ void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspac
          }
       }
 
-      /*
+      
       // loop over points in belt to find upper limit for this toy data
+      /*
       double thisUL = 0;
       for(Int_t i=0; i<histOfThresholds->GetNbinsX(); ++i){
          tmpPoint = (RooArgSet*) parameterScan->get(i)->clone("temp");
@@ -565,13 +573,14 @@ void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspac
          }
       }
       */
+      
 
       histOfUL->Fill(thisUL);
 
       // for few events, data is often the same, and UL is often the same
       //    cout << "thisUL = " << thisUL<<endl;
 
-      // delete toyData;
+       delete toyData;
    }
    histOfUL->Draw();
    c1->cd(3);
@@ -582,7 +591,7 @@ void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspac
    c1->SaveAs((outpdf + ".pdf").c_str());
    c1->SaveAs((outpdf + ".C").c_str());
    // if you want to see a plot of the sampling distribution for a particular scan point:
-   /*
+   
    SamplingDistPlot sampPlot;
    int indexInScan = 0;
    tmpPoint = (RooArgSet*) parameterScan->get(indexInScan)->clone("temp");
@@ -591,7 +600,7 @@ void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspac
    SamplingDistribution* samp = toymcsampler->GetSamplingDistribution(*tmpPoint);
    sampPlot.AddSamplingDistribution(samp);
    sampPlot.Draw();
-      */
+      
 
    // Now find bands and power constraint
    Double_t *bins = histOfUL->GetIntegral();
@@ -622,12 +631,15 @@ void OneSidedFrequentistUpperLimitWithBands_bdm(std::string filename = "workspac
    cout << "CLb strict [P(toy>obs|0)] for observed 90% upper-limit " << CLb << endl;
    cout << "CLb inclusive [P(toy>=obs|0)] for observed 90% upper-limit " << CLbinclusive << endl;
 
+   double upperlimit = interval->UpperLimit(*firstPOI);
    delete profile;
    delete nll;
+
+   return upperlimit;
 }
 
 //Let's check the Bayesian upper limit
-void GetBayesianInterval(std::string filename = "workspace_test.root",
+double GetBayesianInterval(std::string filename = "workspace_test.root",
                          std::string wsname = "myWS")
 {
    // open file with workspace for reading
@@ -638,7 +650,7 @@ void GetBayesianInterval(std::string filename = "workspace_test.root",
    if (!pWs)
    {
       std::cout << "workspace " << wsname << " not found" << std::endl;
-      return;
+      return 0;
    }
 
    // printout workspace content
@@ -649,7 +661,7 @@ void GetBayesianInterval(std::string filename = "workspace_test.root",
    data->Print();
 
    // load and print S+B Model Config
-   RooStats::ModelConfig *pSbHypo = (RooStats::ModelConfig *)pWs->obj("SbHypo");
+   RooStats::ModelConfig *pSbHypo = (RooStats::ModelConfig *)pWs->obj("BHypo");
    pSbHypo->Print();
    RooAbsPdf *pdf = pSbHypo->GetPriorPdf();
 
@@ -677,7 +689,7 @@ void GetBayesianInterval(std::string filename = "workspace_test.root",
 
    // make posterior PDF plot for POI
    TCanvas c1("posterior");
-   bCalc.SetScanOfPosterior(200);
+   bCalc.SetScanOfPosterior(100);
    RooPlot *pPlot = bCalc.GetPosteriorPlot();
    pPlot->Draw();
 
@@ -693,6 +705,8 @@ void GetBayesianInterval(std::string filename = "workspace_test.root",
 
    // clean up a little
    delete pSInt;
+
+   return upper_bound;
    // }
 }
 
@@ -789,6 +803,8 @@ void MakeAllWS(bool test = false)
 void UpperLimitAllDefaultModels()
 {
 
+   fstream outfile; 
+   outfile.open("ULs_hA_BR.txt",ios::out); 
    std::vector<std::string> ws_hA_BR{
        "workspaces/workspace_hA_BR_b1p1_m05.root",
        "workspaces/workspace_hA_BR_b1p1_m10.root",
@@ -805,7 +821,9 @@ void UpperLimitAllDefaultModels()
 
    for (size_t i = 0; i < ws_hA_BR.size(); i++)
    {
-      OneSidedFrequentistUpperLimitWithBands_bdm(ws_hA_BR[i]);
-      GetBayesianInterval(ws_hA_BR[i]);
+      double freq_ul = OneSidedFrequentistUpperLimitWithBands_bdm(ws_hA_BR[i]);
+      double bay_ul = GetBayesianInterval(ws_hA_BR[i]);
+      outfile << freq_ul << '\t' << bay_ul << std::endl;
    }
+   outfile.close(); 
 }
