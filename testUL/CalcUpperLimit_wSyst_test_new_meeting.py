@@ -85,13 +85,6 @@ for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
             nllr_h1 = np.minimum(500., np.maximum(-500., -2*np.log(Q_1)))
             np_nllr_h0, bins_nllr_h0 = np.histogram(nllr_h0, density=True, bins=N_BINS)
             np_nllr_h1, bins_nllr_h1 = np.histogram(nllr_h1, density=True, bins=N_BINS)
-
-            #print(np_nllr_h0.size, bins_nllr_h0.size)
-            #print(np_nllr_h1.size, bins_nllr_h1.size)
-            xcenters = (bins_nllr_h0[:-1] + bins_nllr_h0[1:]) / 2
-            #print(xcenters)
-            #print(np.max(np_nllr_h0))
-            most_prob_value = xcenters[np_nllr_h0 == np.max(np_nllr_h0)]
             
             #print(most_prob_value)
             mean_bkg_only = nllr_h0.mean()
