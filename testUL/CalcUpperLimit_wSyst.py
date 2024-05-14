@@ -31,45 +31,37 @@ def readtxt(infile_array):
         listloaded.append(np.loadtxt(infile, usecols=(3,4), skiprows=1))
     return listloaded
 
-#poi = 0 # parameter of interest ===> g_Z'^8 
-#def std_limits(histo, num_sigmas):
-
-
 optimals = readtxt(infiles) # read values from the optimal cuts
-#print(optimals)r'LLR$_{Only-BG}$'
 
-num_targets_array = np.arange(0.95*NA_dune,1.05*NA_dune,0.005*NA_dune)
+#num_targets_array = np.arange(0.95*NA_dune,1.05*NA_dune,0.005*NA_dune)
 
 for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
-    #to test
+    #to test just the first nuclear model
     if index != 0: 
         break
     
-    
-    #print(optimal_Eff)
-    #OUTPUT_FILE = open("Sens_"+ infiles[index] ,"w")
-    #OUTPUT_FILE.write('indexSample\t ExpSigEvts\t BkgEvts\t CentralBkgEvts\t Eff\t CentralEff\t Numtargets_tmp\t Probability\n')
     for i in range(12): #Each BDM sample gamma and mass value 
-  
+        #to test just the first BDM sample m=5GeV and gamma = 1.1 
         if i != 0: 
             break
 
-        poi = []
-        mean_bg = []
-        std_bg = []
-        mean_sig = []
-        SoverB = []
+        poi = [] #parameter of interest --> g_Z'^8
+        mean_bg = [] # array (list) of the mean background-only distribution (-2*ln Q_{BG_Only}) 
+        std_bg = [] # array (list) of the std of the background-only distribution (-2*ln Q_{BG_Only})
+        mean_sig = [] # array (list) of the mean S+B distribution (-2*ln Q_{S+B}) 
+        SoverB = [] # array (list) of the signal background ratio for each number of signal (fixed B)
 
-        b = round(3*math.sqrt(optimal_Eff[i][1]))# number of expected Bkg
+        b = round(3*math.sqrt(optimal_Eff[i][1]))# number of expected Bkg --> 3 std away from statistical fluctuations
         eff = optimal_Eff[i][0] # Signal Efficiency
 
-        B_syst = np.random.normal(b,BACKGROUND_SYST_UC*b,N_THROWS)
-        B_syst = np.round(B_syst)
-        B_syst = B_syst[B_syst>0]
-        print(b)
+        B_syst = np.random.normal(b,BACKGROUND_SYST_UC*b,N_THROWS) # Throw the background number inside a systematic un.
+        B_syst = np.round(B_syst) # take it as integer number
+        B_syst = B_syst[B_syst>0] # Physical cut, only positive background events.
+        
+        #print(b)
 
-        for s in range(1,120):
-            poi.append(s/(NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff))
+        for s in range(1,120): #Assumes the number of signal events
+            poi.append(s/(NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff)) 
             H_0 = np.random.poisson(B_syst[0],N_THROWS)
             H_1 = np.random.poisson(B_syst[0]+s,N_THROWS)
             for bi in B_syst[1:]:
