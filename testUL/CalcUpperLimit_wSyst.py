@@ -10,7 +10,7 @@ from scipy.integrate import nquad
 plt.rcParams['text.usetex'] = True
 
 
-BACKGROUND_SYST_UC = 0.3
+BACKGROUND_SYST_UC = 0.03
 EFF_SYST_UC = 0.1
 N_THROWS=1000
 N_BINS = 40
@@ -58,7 +58,7 @@ for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
         std_signal_bkg_arr = [] # array (list) of the std of the S+B distribution (-2*ln Q_{S+B})
         SoverB = [] # array (list) of the signal background ratio for each number of signal (fixed B)
 
-        b = round(3*math.sqrt(optimal_Eff[i][1]))# number of expected Bkg --> 3 std away from statistical fluctuations
+        b = round(optimal_Eff[i][1])# number of expected Bkg --> 3 std away from statistical fluctuations
         eff = optimal_Eff[i][0] # Signal Efficiency
 
         B_syst = np.random.normal(b,BACKGROUND_SYST_UC*b,N_THROWS) # Throw the background number inside a systematic un.
@@ -82,8 +82,8 @@ for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
 
             nllr_h0 = np.minimum(500., np.maximum(-500., -2*np.log(Q_0)))
             nllr_h1 = np.minimum(500., np.maximum(-500., -2*np.log(Q_1)))
-            np_nllr_h0, bins_nllr_h0 = np.histogram(nllr_h0, density=True, bins=N_BINS)
-            np_nllr_h1, bins_nllr_h1 = np.histogram(nllr_h1, density=True, bins=N_BINS)
+            #np_nllr_h0, bins_nllr_h0 = np.histogram(nllr_h0, density=True, bins=N_BINS)
+            #np_nllr_h1, bins_nllr_h1 = np.histogram(nllr_h1, density=True, bins=N_BINS)
             
             median_bkg_only = np.median(nllr_h0) #check for medium 
             std_bkg_only = nllr_h0.std() 
@@ -110,7 +110,7 @@ for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
                 plt.axvline(x = median_signal_bkg, ls='--',color='blue', label ='Mean - S+B')
 
                 plt.legend(title = f'Background UC {BACKGROUND_SYST_UC:.1f}')
-                plt.savefig(f'plots/Sens_s{s:.0f}_'+infiles[index]+'_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+                plt.savefig(f'plots/new_Sens_s{s:.0f}_'+infiles[index]+'_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
             #plt.show()
         #np.savetxt(OUTPUT_FILE,result.reshape(1, result.shape[0]), fmt ='%.5e')
 
@@ -141,7 +141,7 @@ for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
         ax2.plot(SoverB, median_signal_bkg_arr, color = 'red')
         ax2.set_xlabel("S/B")
         ax.legend(title = r'$\gamma = 1.1, \quad m_\chi = 5 \textrm{ GeV ,hA+BR}$', loc='lower left')
-        fig.savefig(f'plots/S_PLUS_B_LLR_s{s:.0f}_'+infiles[index]+'_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+        fig.savefig(f'plots/new_S_PLUS_B_LLR_s{s:.0f}_'+infiles[index]+'_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
 
         ################################################################
         #          PLOT FIGURE      BG ONLY WITH 90%CL LIMITS          #
@@ -160,7 +160,7 @@ for index, optimal_Eff in enumerate(optimals): #Each nuclear configuration model
         ax2.plot(SoverB, median_bkg_only_arr)
         ax2.set_xlabel("S/B")
         ax.legend(title = r'$\gamma = 1.1,\quad m_\chi = 5 \textrm{ GeV, hA+BR}$', loc='upper left')
-        fig.savefig(f'plots/BG_ONLY_LLR_s{s:.0f}_'+infiles[index]+'_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+        fig.savefig(f'plots/new_BG_ONLY_LLR_s{s:.0f}_'+infiles[index]+'_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
 
 
         
