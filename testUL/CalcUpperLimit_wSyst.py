@@ -35,14 +35,13 @@ def readtxt(infile_array):
     listloaded = [] 
     for infile in infile_array:
         listloaded.append(np.loadtxt(infile, usecols=(3,4), skiprows=1))
-    return listloaded
+    return np.array(listloaded)
 
 optimals = readtxt(infiles) # read values from the optimal cuts
 
 #optimals === first collumn nuclear model 
 #==== second collumn BDM sample 
 #==== third collumn firt entry overall signal efficiency second entry expected background number
-
 
 for i in range(12): #Each BDM sample gamma and mass value 
 
@@ -60,38 +59,55 @@ for i in range(12): #Each BDM sample gamma and mass value
     b_cv = round(optimals[0][i][1])# number of expected Bkg -- Defaulf model hA_BR (CentralValue)
     eff_cv = optimals[0][i][0] # Signal Efficiency -- Default model hA_BR (CentralValue)
     
-    draw_nuclear_model_shift = np.random.randint(0,6)
-    shifts_b_eff = 1-((optimals[0][i][:]-optimals[draw_nuclear_model_shift][i][:])/optimals[0][i][:])
-    
+    nm_shift = np.random.randint(0,6,size=N_THROWS) #Throw nuclear model
     eff_syst = np.random.normal(eff_cv,EFF_SYST_UC*eff_cv,N_THROWS) # Throw the background number inside a systematic un.
-    eff_syst = shifts_b_eff[0]*eff_syst
+    B_syst = np.random.normal(b_cv,BACKGROUND_SYST_UC*b_cv,N_THROWS) # Throw the background number inside a systematic un.
+
+    shifts_b_eff=[]
+
+    for nuclear_model in range(N_THROWS):
+        shifts_b_eff.append(1-((optimals[0][i][:]-optimals[nm_shift[nuclear_model]][i][:])/optimals[0][i][:]))
+
+    shifts_b_eff = np.array(shifts_b_eff)
+    print(shifts_b_eff)
+    print(shifts_b_eff[:,0])
+
+    eff_syst = shifts_b_eff[:,0]*eff_syst
     eff_syst = eff_syst[eff_syst>0] # Physical cut, only positive background events.
 
     plt.figure(dpi=300)
     plt.hist(eff_syst, bins = 50, label='eff throws syst.')
     plt.show()
 
-    
-    B_syst = np.random.normal(b_cv,BACKGROUND_SYST_UC*b_cv,N_THROWS) # Throw the background number inside a systematic un.
+
     B_syst = np.round(B_syst) # take it as integer number
-    B_syst = shifts_b_eff[1]*B_syst
+    B_syst = shifts_b_eff[:,1]*B_syst
     B_syst = B_syst[B_syst>0] # Physical cut, only positive background events.
+    print(B_syst.size, eff_syst.size)
 
     plt.figure(dpi=300)
     plt.hist(B_syst, bins = 50, label='bkg number throws syst.')
     plt.show()
-    
-    for s in range(1,120): #Assumes the number of signal events
-        poi.append(s/(NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff_syst)) 
+
+    poi = np.logspace(-7,-5.8,num=150, base=10)
+
+    for gz4 in poi: #Assumes the number of signal events
+
+        print(gz4)
+        S_syst = NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff_syst*(gz4**2) 
+        #print(S_syst)
+        s_cv = NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff_cv*(gz4**2) 
+        print((gz4**2))
+        print(s_cv)
         H_0 = np.random.poisson(B_syst[0],N_THROWS)
-        H_1 = np.random.poisson(B_syst[0]+s,N_THROWS)
+        H_1 = np.random.poisson(B_syst[0]+S_syst[0],N_THROWS)
         for index, bi in enumerate(B_syst[1:]):
             h0_i = np.random.poisson(bi,N_THROWS)
             H_0 = np.concatenate((H_0,h0_i))
-            h1_i = np.random.poisson(bi+s,N_THROWS)
+            h1_i = np.random.poisson(bi+S_syst[index],N_THROWS)
             H_1 = np.concatenate((H_1,h1_i))
-        Q_0 = poisson.pmf(H_0, s+b_cv)/poisson.pmf(H_0, b_cv)
-        Q_1 = poisson.pmf(H_1, s+b_cv)/poisson.pmf(H_1, b_cv)
+        Q_0 = poisson.pmf(H_0, s_cv+b_cv)/poisson.pmf(H_0, b_cv)
+        Q_1 = poisson.pmf(H_1, s_cv+b_cv)/poisson.pmf(H_1, b_cv)
         nllr_h0 = np.minimum(500., np.maximum(-500., -2*np.log(Q_0)))
         nllr_h1 = np.minimum(500., np.maximum(-500., -2*np.log(Q_1)))
         
@@ -103,24 +119,22 @@ for i in range(12): #Each BDM sample gamma and mass value
         std_bkg_only_arr.append(std_bkg_only)
         median_signal_bkg_arr.append(median_signal_bkg)
         std_signal_bkg_arr.append(std_signal_bkg)
-        SoverB.append(float(s/b_cv))
-        if( s % 10 ==0):
+        SoverB.append(S_syst/b_cv)
+        
+        if( np.round(s_cv) % 10 ==0 ):
             plt.figure(dpi=300)
-            plt.title(f'S: {s:.0f} B: {b_cv:.0f}')
+            plt.title(fr'$g_Z^8$: {math.log(gz4):.2f} B: {b_cv:.0f}')
             plt.hist(nllr_h0, bins=N_BINS, histtype='step', label="Only Background")
             plt.hist(nllr_h1, bins=N_BINS, histtype='step', label= "S+B")
-            #plt.axvline(x = median_bkg_only+STD_TO_90CL_SCALE*std_bkg_only,ls='--' ,color = 'g', label = r'$\pm 1\sigma$')
-            #plt.axvline(x = median_bkg_only-STD_TO_90CL_SCALE*std_bkg_only,ls='--' ,color = 'g')
             plt.axvline(x = median_signal_bkg+STD_TO_90CL_SCALE*std_bkg_only,ls='--', color = 'r')
             plt.axvline(x = median_signal_bkg-STD_TO_90CL_SCALE*std_bkg_only,ls='--', color = 'r', label = r'$90\%$ C.L.')
             plt.axvline(x = median_bkg_only,ls='--', color = 'gray', label = 'Median - Only BG')
             plt.axvline(x = median_signal_bkg, ls='--',color='blue', label ='Median - S+B')
             plt.legend(title = f'Background UC {BACKGROUND_SYST_UC:.1f}')
-            plt.savefig(f'plots/new_Sens_s{s:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+            plt.savefig(f'plots/new_Sens_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
             print("Printed!")
             plt.close()  
-    #np.savetxt(OUTPUT_FILE,result.reshape(1, result.shape[0]), fmt ='%.5e')
-    #plt.title(f'S: {s:.0f} B: {b:.0f}')
+
     poi = np.array(poi)
     median_bkg_only_arr = np.array(median_bkg_only_arr)
     std_bkg_only_arr = np.array(std_bkg_only_arr)
@@ -128,76 +142,77 @@ for i in range(12): #Each BDM sample gamma and mass value
     std_signal_bkg_arr = np.array(std_signal_bkg_arr)
     SoverB = np.array(SoverB)
 
-    sig = np.linspace(1,119,119)
     ################################################################
     #          PLOT FIGURE        S+B WITH 90%CL LIMITS            #
     ################################################################
     fig, ax = plt.subplots(dpi=300)
-    ax.plot(sig,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
+    ax.plot(poi,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
     plt.xlabel(r"Number of Signal Events $(s)$", fontsize = 15)
     plt.ylabel('NLLR', fontsize = 15)
-    ax.plot(sig,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
+    ax.plot(poi,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
     #ax.text(0,-75, r'$\gamma = 1.1$, hA+BR', fontsize=14)
-    ax.fill_between(sig,median_signal_bkg_arr-std_signal_bkg_arr, median_signal_bkg_arr+std_signal_bkg_arr,alpha=0.5,label = r'$\pm 1\sigma$')
-    ax.fill_between(sig,median_signal_bkg_arr-(STD_TO_90CL_SCALE*std_signal_bkg_arr), median_signal_bkg_arr+(STD_TO_90CL_SCALE*std_signal_bkg_arr),alpha=.5,label = r'$90\% C.L.$')
-    ax2 = ax.twiny()
-    ax2.plot(SoverB, median_signal_bkg_arr, color = 'red')
-    ax2.set_xlabel("S/B")
+    ax.fill_between(poi,median_signal_bkg_arr-std_signal_bkg_arr, median_signal_bkg_arr+std_signal_bkg_arr,alpha=0.5,label = r'$\pm 1\sigma$')
+    ax.fill_between(poi,median_signal_bkg_arr-(STD_TO_90CL_SCALE*std_signal_bkg_arr), median_signal_bkg_arr+(STD_TO_90CL_SCALE*std_signal_bkg_arr),alpha=.5,label = r'$90\% C.L.$')
+    #ax2 = ax.twiny()
+    #ax2.plot(SoverB, median_signal_bkg_arr, color = 'red')
+    #ax2.set_xlabel("S/B")
     ax.legend(title = r'$\gamma = 1.1, \quad m_\chi = 5 \textrm{ GeV ,hA+BR}$', loc='upper left')
-    fig.savefig(f'plots/new_S_PLUS_B_LLR_s{s:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+    fig.savefig(f'plots/new_S_PLUS_B_LLR_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()  
+
     ################################################################
     #          PLOT FIGURE      BG ONLY WITH 90%CL LIMITS          #
     ################################################################
     fig, ax = plt.subplots(dpi=300)
-    ax.plot(sig,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
+    ax.plot(poi,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
     plt.xlabel(r"Number of Signal Events $(s)$", fontsize = 15)
     plt.ylabel('NLLR', fontsize = 15)
-    ax.plot(sig,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
+    ax.plot(poi,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
     #ax.text(0,-75, r'$\gamma = 1.1$, hA+BR', fontsize=14)
-    ax.fill_between(sig,median_bkg_only_arr-std_bkg_only_arr, median_bkg_only_arr+std_bkg_only_arr,alpha=0.5,label = r'$\pm 1\sigma$')
-    ax.fill_between(sig,median_bkg_only_arr-(STD_TO_90CL_SCALE*std_bkg_only_arr), median_bkg_only_arr+(STD_TO_90CL_SCALE*std_bkg_only_arr),alpha=.5,label = r'$90\% C.L.$')
-    ax2 = ax.twiny()
-    ax2.plot(SoverB, median_bkg_only_arr)
-    ax2.set_xlabel("S/B")
+    ax.fill_between(poi,median_bkg_only_arr-std_bkg_only_arr, median_bkg_only_arr+std_bkg_only_arr,alpha=0.5,label = r'$\pm 1\sigma$')
+    ax.fill_between(poi,median_bkg_only_arr-(STD_TO_90CL_SCALE*std_bkg_only_arr), median_bkg_only_arr+(STD_TO_90CL_SCALE*std_bkg_only_arr),alpha=.5,label = r'$90\% C.L.$')
+    #ax2 = ax.twiny()
+    #ax2.plot(SoverB, median_bkg_only_arr)
+    #ax2.set_xlabel("S/B")
     ax.legend(title = r'$\gamma = 1.1,\quad m_\chi = 5 \textrm{ GeV, hA+BR}$', loc='upper left')
-    fig.savefig(f'plots/new_BG_ONLY_LLR_s{s:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+    fig.savefig(f'plots/new_BG_ONLY_LLR_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()  
 
     ################################################################
     #          PLOT FIGURE      Upperlimit S = 89                  #
     ################################################################
 
-    fig, ax = plt.subplots(dpi=300)
-    ax.plot(sig,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
-    plt.xlabel(r"$g_{Z'}^8$", fontsize = 15)
-    plt.ylabel('NLLR', fontsize = 15)
-    ax.plot(sig,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
-    #ax.text(0,-75, r'$\gamma = 1.1$, hA+BR', fontsize=14)
-    ax.fill_between(sig,median_bkg_only_arr-std_bkg_only_arr, median_bkg_only_arr+std_bkg_only_arr,alpha=0.5,label = r'$\pm 1\sigma$')
-    ax.fill_between(sig,median_bkg_only_arr-(STD_TO_90CL_SCALE*std_bkg_only_arr), median_bkg_only_arr+(STD_TO_90CL_SCALE*std_bkg_only_arr),alpha=.5,label = r'$90\% C.L.$')
-    ax2 = ax.twiny()
-    ax2.plot(SoverB, median_bkg_only_arr)
-    ax2.set_xlabel("S/B")
-    ax.legend(title = r'$\gamma = 1.1,\quad m_\chi = 5 \textrm{ GeV, hA+BR}$', loc='upper left')
-    fig.savefig(f'plots/new_BG_ONLY_LLR_s{s:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
-    plt.close()  
+    # fig, ax = plt.subplots(dpi=300)
+    # ax.plot(sig,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
+    # plt.xlabel(r"$g_{Z'}^8$", fontsize = 15)
+    # plt.ylabel('NLLR', fontsize = 15)
+    # ax.plot(sig,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
+    # #ax.text(0,-75, r'$\gamma = 1.1$, hA+BR', fontsize=14)
+    # ax.fill_between(sig,median_bkg_only_arr-std_bkg_only_arr, median_bkg_only_arr+std_bkg_only_arr,alpha=0.5,label = r'$\pm 1\sigma$')
+    # ax.fill_between(sig,median_bkg_only_arr-(STD_TO_90CL_SCALE*std_bkg_only_arr), median_bkg_only_arr+(STD_TO_90CL_SCALE*std_bkg_only_arr),alpha=.5,label = r'$90\% C.L.$')
+    # ax2 = ax.twiny()
+    # ax2.plot(SoverB, median_bkg_only_arr)
+    # ax2.set_xlabel("S/B")
+    # ax.legend(title = r'$\gamma = 1.1,\quad m_\chi = 5 \textrm{ GeV, hA+BR}$', loc='upper left')
+    # fig.savefig(f'plots/new_BG_ONLY_LLR_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+    # plt.close()  
 
     ################################################################
     #          PLOT FIGURE      Upperlimit S = 89                  #
     ################################################################
-    fig, ax = plt.subplots(dpi=300)
-    ax.plot(sig,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
-    plt.xlabel(r"$g_{Z'}^8$", fontsize = 15)
-    plt.ylabel('NLLR', fontsize = 15)
-    ax.hist(sig,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
-    #ax.text(0,-75, r'$\gamma = 1.1$, hA+BR', fontsize=14)
-    ax2 = ax.twiny()
-    ax2.plot(SoverB, median_bkg_only_arr)
-    ax2.set_xlabel("S/B")
-    ax.legend(title = r'$\gamma = 1.1,\quad m_\chi = 5 \textrm{ GeV, hA+BR}$', loc='upper left')
-    fig.savefig(f'plots/new_BG_ONLY_LLR_s{s:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
-    plt.close()  
+
+    # fig, ax = plt.subplots(dpi=300)
+    # ax.plot(sig,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
+    # plt.xlabel(r"$g_{Z'}^8$", fontsize = 15)
+    # plt.ylabel('NLLR', fontsize = 15)
+    # ax.hist(sig,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
+    # #ax.text(0,-75, r'$\gamma = 1.1$, hA+BR', fontsize=14)
+    # ax2 = ax.twiny()
+    # ax2.plot(SoverB, median_bkg_only_arr)
+    # ax2.set_xlabel("S/B")
+    # ax.legend(title = r'$\gamma = 1.1,\quad m_\chi = 5 \textrm{ GeV, hA+BR}$', loc='upper left')
+    # fig.savefig(f'plots/new_BG_ONLY_LLR_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+    # plt.close()  
    
 print("Finished!")
         
