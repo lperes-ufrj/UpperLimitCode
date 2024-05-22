@@ -46,9 +46,9 @@ optimals = readtxt(infiles) # read values from the optimal cuts
 
 
 
-for i in range(9,12): #Each BDM sample gamma and mass value 
+for i in range(11,12): #Each BDM sample gamma and mass value 
 
-    if i !=9:
+    if i !=11:
         break
     #OUTPUT_FILE =open("Sens_"+ infiles[i] ,"w") 
 
@@ -107,7 +107,7 @@ for i in range(9,12): #Each BDM sample gamma and mass value
    # if i > 7:
    #     poi = np.logspace(-7.,-6.,num=900, base=10)
 
-    poi = np.linspace(1.e-8,1.3e-6,1200)
+    poi = np.linspace(1e-7,4e-6,1400)
 
 
     for gz4 in poi: #Assumes the number of signal events
@@ -219,14 +219,14 @@ for i in range(9,12): #Each BDM sample gamma and mass value
                 if bins[j] >= vline:
                     plt.fill_between([bins[j], bins[j+1]], 0, counts[j], color='red', alpha=1.)
                 elif bins[j] < vline < bins[j+1]:
-                    plt.fill_between([vline, bins[j+1]], 0, counts[j], color='red', alpha=1.,label = r'CL$_{s+b}= %.2f$' %(cl_sb))
+                    plt.fill_between([vline, bins[j+1]], 0, counts[j], color='red', alpha=1.,label = r'CL$_{s+b}$')
 
             plt.axvline(x = median_bkg_only,ls='--', color = 'gray', label = 'Median - Only BG')
 
-            plt.axvline(x = upband_onesigma_bkg_only, ls='--',color='blue', label =r'$+1 \sigma$')
-            plt.axvline(x = upband_twosigma_bkg_only, ls='--',color='blue', label =r'$+2 \sigma$')
-            plt.axvline(x = lowband_onesigma_bkg_only, ls='--',color='blue', label =r'$-1 \sigma$')
-            plt.axvline(x = lowband_twosigma_bkg_only, ls='--',color='blue', label =r'$-2 \sigma$')
+            plt.axvline(x = upband_onesigma_bkg_only, ls='--',color='blue')
+            #plt.axvline(x = upband_twosigma_bkg_only, ls='--',color='blue', label =r'$+2 \sigma$')
+            plt.axvline(x = lowband_onesigma_bkg_only, ls='--',color='blue', label =r'$\pm 1 \sigma$')
+            #plt.axvline(x = lowband_twosigma_bkg_only, ls='--',color='blue', label =r'$-2 \sigma$')
 
             plt.legend(title = f'Background UC {BACKGROUND_SYST_UC:.2f}')
             plt.savefig(f'plots/new_Sens_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
@@ -252,7 +252,7 @@ for i in range(9,12): #Each BDM sample gamma and mass value
     ax.fill_between(poi,median_signal_bkg_arr-std_signal_bkg_arr, median_signal_bkg_arr+std_signal_bkg_arr,alpha=0.5,label = r'$\pm 1\sigma$')
     ax.fill_between(poi,per5_signal_bkg_arr,per95_signal_bkg_arr,alpha=.5,label = r'$90\% C.L.$')
 
-    ax.legend(title = r'$\gamma = 10,\; m_\chi = 10 \textrm{ GeV ,hA+BR}$', loc='lower left')
+    ax.legend(title = r'$\gamma = 10,\; m_\chi = 40 \textrm{ GeV ,hA+BR}$', loc='lower left')
     fig.savefig(f'plots/new_S_PLUS_B_LLR_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()  
 
@@ -264,13 +264,11 @@ for i in range(9,12): #Each BDM sample gamma and mass value
     plt.xlabel(r"$g_{Z^{\prime}}^4$", fontsize = 15)
     plt.ylabel('NLLR', fontsize = 15)
     ax.plot(poi,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
-    #ax.text(0,-75, r'$\gamma = 1.1$, hA+BR', fontsize=14)
+
     ax.fill_between(poi,median_bkg_only_arr-std_bkg_only_arr, median_bkg_only_arr+std_bkg_only_arr,alpha=0.5,label = r'$\pm 1\sigma$')
     ax.fill_between(poi,median_bkg_only_arr-(STD_TO_90CL_SCALE*std_bkg_only_arr), median_bkg_only_arr+(STD_TO_90CL_SCALE*std_bkg_only_arr),alpha=.5,label = r'$90\% C.L.$')
-    #ax2 = ax.twiny()
-    #ax2.plot(SoverB, median_bkg_only_arr)
-    #ax2.set_xlabel("S/B")
-    ax.legend(title = r'$\gamma = 10,\quad m_\chi = 10 \textrm{ GeV, hA+BR}$', loc='upper left')
+
+    ax.legend(title = r'$\gamma = 10,\quad m_\chi = 40 \textrm{ GeV, hA+BR}$', loc='upper left')
     fig.savefig(f'plots/new_BG_ONLY_LLR_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()  
 

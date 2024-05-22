@@ -219,14 +219,14 @@ for i in range(9,12): #Each BDM sample gamma and mass value
                 if bins[j] >= vline:
                     plt.fill_between([bins[j], bins[j+1]], 0, counts[j], color='red', alpha=1.)
                 elif bins[j] < vline < bins[j+1]:
-                    plt.fill_between([vline, bins[j+1]], 0, counts[j], color='red', alpha=1.,label = r'CL$_{s+b}= %.2f$' %(cl_sb))
+                    plt.fill_between([vline, bins[j+1]], 0, counts[j], color='red', alpha=1.,label = r'CL$_{s+b}$')
 
             plt.axvline(x = median_bkg_only,ls='--', color = 'gray', label = 'Median - Only BG')
 
-            plt.axvline(x = upband_onesigma_bkg_only, ls='--',color='blue', label =r'$+1 \sigma$')
-            plt.axvline(x = upband_twosigma_bkg_only, ls='--',color='blue', label =r'$+2 \sigma$')
-            plt.axvline(x = lowband_onesigma_bkg_only, ls='--',color='blue', label =r'$-1 \sigma$')
-            plt.axvline(x = lowband_twosigma_bkg_only, ls='--',color='blue', label =r'$-2 \sigma$')
+            plt.axvline(x = upband_onesigma_bkg_only, ls='--',color='blue', label =r'$\pm 1 \sigma$')
+            #plt.axvline(x = upband_twosigma_bkg_only, ls='--',color='blue', label =r'$+2 \sigma$')
+            plt.axvline(x = lowband_onesigma_bkg_only, ls='--',color='blue')
+            #plt.axvline(x = lowband_twosigma_bkg_only, ls='--',color='blue', label =r'$-2 \sigma$')
 
             plt.legend(title = f'Background UC {BACKGROUND_SYST_UC:.2f}')
             plt.savefig(f'plots/new_Sens_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)

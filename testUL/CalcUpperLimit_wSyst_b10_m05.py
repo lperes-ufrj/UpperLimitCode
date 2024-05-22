@@ -46,9 +46,9 @@ optimals = readtxt(infiles) # read values from the optimal cuts
 
 
 
-for i in range(9,12): #Each BDM sample gamma and mass value 
+for i in range(8,12): #Each BDM sample gamma and mass value 
 
-    if i !=9:
+    if i !=8:
         break
     #OUTPUT_FILE =open("Sens_"+ infiles[i] ,"w") 
 
@@ -100,14 +100,7 @@ for i in range(9,12): #Each BDM sample gamma and mass value
     plt.close()
 
 
-   # if i < 4:
-   #     poi = np.logspace(-6.5,-5.3,num=200, base=10)
-   # if i > 3 and i < 8:
-   #     poi = np.logspace(-7.5,-6.2,num=150, base=10)
-   # if i > 7:
-   #     poi = np.logspace(-7.,-6.,num=900, base=10)
-
-    poi = np.linspace(1.e-8,1.3e-6,1200)
+    poi = np.linspace(1.e-8,0.5e-6,1200)
 
 
     for gz4 in poi: #Assumes the number of signal events
@@ -219,14 +212,14 @@ for i in range(9,12): #Each BDM sample gamma and mass value
                 if bins[j] >= vline:
                     plt.fill_between([bins[j], bins[j+1]], 0, counts[j], color='red', alpha=1.)
                 elif bins[j] < vline < bins[j+1]:
-                    plt.fill_between([vline, bins[j+1]], 0, counts[j], color='red', alpha=1.,label = r'CL$_{s+b}= %.2f$' %(cl_sb))
+                    plt.fill_between([vline, bins[j+1]], 0, counts[j], color='red', alpha=1.,label = r'CL$_{s+b}$')
 
             plt.axvline(x = median_bkg_only,ls='--', color = 'gray', label = 'Median - Only BG')
 
-            plt.axvline(x = upband_onesigma_bkg_only, ls='--',color='blue', label =r'$+1 \sigma$')
-            plt.axvline(x = upband_twosigma_bkg_only, ls='--',color='blue', label =r'$+2 \sigma$')
-            plt.axvline(x = lowband_onesigma_bkg_only, ls='--',color='blue', label =r'$-1 \sigma$')
-            plt.axvline(x = lowband_twosigma_bkg_only, ls='--',color='blue', label =r'$-2 \sigma$')
+            plt.axvline(x = upband_onesigma_bkg_only, ls='--',color='blue', label =r'$\pm 1 \sigma$')
+            #plt.axvline(x = upband_twosigma_bkg_only, ls='--',color='blue', label =r'$+2 \sigma$')
+            plt.axvline(x = lowband_onesigma_bkg_only, ls='--',color='blue')
+            #plt.axvline(x = lowband_twosigma_bkg_only, ls='--',color='blue', label =r'$-2 \sigma$')
 
             plt.legend(title = f'Background UC {BACKGROUND_SYST_UC:.2f}')
             plt.savefig(f'plots/new_Sens_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
