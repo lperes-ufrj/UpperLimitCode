@@ -12,6 +12,7 @@ plt.rcParams['text.usetex'] = True
 
 BACKGROUND_SYST_UC = 0.03
 EFF_SYST_UC = 0.1
+NA_DUNE_UC = 0.05
 N_THROWS=500
 N_BINS = 40
 STD_TO_90CL_SCALE = 1.318295
@@ -66,9 +67,10 @@ for i in range(9,12): #Each BDM sample gamma and mass value
     eff_cv = optimals[0][i][0] # Signal Efficiency -- Default model hA_BR (CentralValue)
     
     nm_shift = np.random.randint(0,6,size=N_THROWS) #Throw nuclear model
-    eff_syst = np.random.normal(eff_cv,EFF_SYST_UC*eff_cv,N_THROWS) # Throw the background number inside a systematic un.
+    eff_syst = np.random.normal(eff_cv,EFF_SYST_UC*eff_cv,N_THROWS) # Throw the overall efficiency inside a systematic un.
     B_syst = np.random.normal(b_cv,BACKGROUND_SYST_UC*b_cv,N_THROWS) # Throw the background number inside a systematic un.
-
+    NA_dune_syst = np.random.normal(NA_dune,NA_dune*NA_DUNE_UC, N_THROWS) #Throw the number of targets (Fiducial Mass) inside a systematic un.
+    
     shifts_b_eff=[]
 
     for nuclear_model in range(N_THROWS):
@@ -88,7 +90,7 @@ for i in range(9,12): #Each BDM sample gamma and mass value
     plt.close()
 
     B_syst = np.round(B_syst) # take it as integer number
-    B_syst = shifts_b_eff[:,1]*B_syst
+    B_syst = (NA_dune_syst/NA_dune)*shifts_b_eff[:,1]*B_syst
     
     B_syst = B_syst[B_syst>0] # Physical cut, only positive background events.
     print(B_syst.size, eff_syst.size)
@@ -113,7 +115,7 @@ for i in range(9,12): #Each BDM sample gamma and mass value
     for gz4 in poi: #Assumes the number of signal events
 
         #print(gz4)
-        S_syst = NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff_syst*(gz4**2) 
+        S_syst = NA_dune_syst*xsec_list[i]*livetime_dune*flux_list[i]*eff_syst*(gz4**2) 
         #print(S_syst)
         s_cv = NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff_cv*(gz4**2) 
         #print((gz4**2))
@@ -229,7 +231,7 @@ for i in range(9,12): #Each BDM sample gamma and mass value
             #plt.axvline(x = lowband_twosigma_bkg_only, ls='--',color='blue', label =r'$-2 \sigma$')
 
             plt.legend(title = f'Background UC {BACKGROUND_SYST_UC:.2f}')
-            plt.savefig(f'plots/new_Sens_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+            plt.savefig(f'plots/new_Sens_s{s_cv:.0f}_'+labelsamples[i]+'_wNASyst.pdf', format='pdf', dpi=600)
             #print("Printed!")
             plt.close()  
 
@@ -253,7 +255,7 @@ for i in range(9,12): #Each BDM sample gamma and mass value
     ax.fill_between(poi,per5_signal_bkg_arr,per95_signal_bkg_arr,alpha=.5,label = r'$90\% C.L.$')
 
     ax.legend(title = r'$\gamma = 10,\; m_\chi = 10 \textrm{ GeV ,hA+BR}$', loc='lower left')
-    fig.savefig(f'plots/new_S_PLUS_B_LLR_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+    fig.savefig(f'plots/new_S_PLUS_B_LLR_s{s_cv:.0f}_'+labelsamples[i]+'_wNASyst.pdf', format='pdf', dpi=600)
     plt.close()  
 
     ################################################################
@@ -267,11 +269,9 @@ for i in range(9,12): #Each BDM sample gamma and mass value
     #ax.text(0,-75, r'$\gamma = 1.1$, hA+BR', fontsize=14)
     ax.fill_between(poi,median_bkg_only_arr-std_bkg_only_arr, median_bkg_only_arr+std_bkg_only_arr,alpha=0.5,label = r'$\pm 1\sigma$')
     ax.fill_between(poi,median_bkg_only_arr-(STD_TO_90CL_SCALE*std_bkg_only_arr), median_bkg_only_arr+(STD_TO_90CL_SCALE*std_bkg_only_arr),alpha=.5,label = r'$90\% C.L.$')
-    #ax2 = ax.twiny()
-    #ax2.plot(SoverB, median_bkg_only_arr)
-    #ax2.set_xlabel("S/B")
+
     ax.legend(title = r'$\gamma = 10,\quad m_\chi = 10 \textrm{ GeV, hA+BR}$', loc='upper left')
-    fig.savefig(f'plots/new_BG_ONLY_LLR_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+    fig.savefig(f'plots/new_BG_ONLY_LLR_s{s_cv:.0f}_'+labelsamples[i]+'_wNASyst.pdf', format='pdf', dpi=600)
     plt.close()  
 
     ################################################################
