@@ -1,2 +1,0 @@
-SigStrength	NegCosCut	PosCosCut	bestEff	BkgExpect	BkgError	CVNCut
-SigStrength	NegCosCut	PosCosCut	bestEff	BkgExpect	BkgError	CVNCut
