@@ -1,0 +1,132 @@
+################# SAMPLE INFO #######################
+
+Number of Atmospheric Neutrinos Events Simulated: 1532499
+Number of Atmospheric Neutrinos Events Reconstructed: 1123411
+Ratio of Atmospheric Neutrinos Events Reconstructed: 0.7328
+
+Sample: newVertex/00b_newVertex/bdm_m05_b1p1_00b
+Number of Boosted DM Events Simulated: 99800
+Number of Boosted DM Events Reconstructed: 5123
+Ratio of Boosted DM Events Reconstructed: 0.051332665330661324
+
+Sample: newVertex/00b_newVertex/bdm_m10_b1p1_00b
+Number of Boosted DM Events Simulated: 95078
+Number of Boosted DM Events Reconstructed: 6001
+Ratio of Boosted DM Events Reconstructed: 0.06311659900292392
+
+Sample: newVertex/00b_newVertex/bdm_m20_b1p1_00b
+Number of Boosted DM Events Simulated: 71400
+Number of Boosted DM Events Reconstructed: 4863
+Ratio of Boosted DM Events Reconstructed: 0.06810924369747899
+
+Sample: newVertex/00b_newVertex/bdm_m40_b1p1_00b
+Number of Boosted DM Events Simulated: 87800
+Number of Boosted DM Events Reconstructed: 6237
+Ratio of Boosted DM Events Reconstructed: 0.0710364464692483
+
+Sample: newVertex/00b_newVertex/bdm_m05_b1p5_00b
+Number of Boosted DM Events Simulated: 67400
+Number of Boosted DM Events Reconstructed: 47728
+Ratio of Boosted DM Events Reconstructed: 0.7081305637982196
+
+Sample: newVertex/00b_newVertex/bdm_m10_b1p5_00b
+Number of Boosted DM Events Simulated: 51800
+Number of Boosted DM Events Reconstructed: 37631
+Ratio of Boosted DM Events Reconstructed: 0.7264671814671815
+
+Sample: newVertex/00b_newVertex/bdm_m20_b1p5_00b
+Number of Boosted DM Events Simulated: 79600
+Number of Boosted DM Events Reconstructed: 58482
+Ratio of Boosted DM Events Reconstructed: 0.7346984924623116
+
+Sample: newVertex/00b_newVertex/bdm_m40_b1p5_00b
+Number of Boosted DM Events Simulated: 76000
+Number of Boosted DM Events Reconstructed: 56407
+Ratio of Boosted DM Events Reconstructed: 0.7421973684210527
+
+Sample: newVertex/00b_newVertex/bdm_m05_b10_00b
+Number of Boosted DM Events Simulated: 82000
+Number of Boosted DM Events Reconstructed: 76581
+Ratio of Boosted DM Events Reconstructed: 0.9339146341463415
+
+Sample: newVertex/00b_newVertex/bdm_m10_b10_00b
+Number of Boosted DM Events Simulated: 75600
+Number of Boosted DM Events Reconstructed: 71057
+Ratio of Boosted DM Events Reconstructed: 0.9399074074074074
+
+Sample: newVertex/00b_newVertex/bdm_m20_b10_00b
+Number of Boosted DM Events Simulated: 69200
+Number of Boosted DM Events Reconstructed: 65283
+Ratio of Boosted DM Events Reconstructed: 0.9433959537572254
+
+Sample: newVertex/00b_newVertex/bdm_m40_b10_00b
+Number of Boosted DM Events Simulated: 84000
+Number of Boosted DM Events Reconstructed: 79451
+Ratio of Boosted DM Events Reconstructed: 0.9458452380952381
+
+################# SAMPLE INFO #######################
+
+Number of Atmospheric Neutrinos Events Simulated: 1532499
+Number of Atmospheric Neutrinos Events Reconstructed: 1123411
+Ratio of Atmospheric Neutrinos Events Reconstructed: 0.7328
+
+Sample: newVertex/00b_newVertex/bdm_m05_b1p1_00b
+Number of Boosted DM Events Simulated: 99800
+Number of Boosted DM Events Reconstructed: 5123
+Ratio of Boosted DM Events Reconstructed: 0.051332665330661324
+
+Sample: newVertex/00b_newVertex/bdm_m10_b1p1_00b
+Number of Boosted DM Events Simulated: 95078
+Number of Boosted DM Events Reconstructed: 6001
+Ratio of Boosted DM Events Reconstructed: 0.06311659900292392
+
+Sample: newVertex/00b_newVertex/bdm_m20_b1p1_00b
+Number of Boosted DM Events Simulated: 71400
+Number of Boosted DM Events Reconstructed: 4863
+Ratio of Boosted DM Events Reconstructed: 0.06810924369747899
+
+Sample: newVertex/00b_newVertex/bdm_m40_b1p1_00b
+Number of Boosted DM Events Simulated: 87800
+Number of Boosted DM Events Reconstructed: 6237
+Ratio of Boosted DM Events Reconstructed: 0.0710364464692483
+
+Sample: newVertex/00b_newVertex/bdm_m05_b1p5_00b
+Number of Boosted DM Events Simulated: 67400
+Number of Boosted DM Events Reconstructed: 47728
+Ratio of Boosted DM Events Reconstructed: 0.7081305637982196
+
+Sample: newVertex/00b_newVertex/bdm_m10_b1p5_00b
+Number of Boosted DM Events Simulated: 51800
+Number of Boosted DM Events Reconstructed: 37631
+Ratio of Boosted DM Events Reconstructed: 0.7264671814671815
+
+Sample: newVertex/00b_newVertex/bdm_m20_b1p5_00b
+Number of Boosted DM Events Simulated: 79600
+Number of Boosted DM Events Reconstructed: 58482
+Ratio of Boosted DM Events Reconstructed: 0.7346984924623116
+
+Sample: newVertex/00b_newVertex/bdm_m40_b1p5_00b
+Number of Boosted DM Events Simulated: 76000
+Number of Boosted DM Events Reconstructed: 56407
+Ratio of Boosted DM Events Reconstructed: 0.7421973684210527
+
+Sample: newVertex/00b_newVertex/bdm_m05_b10_00b
+Number of Boosted DM Events Simulated: 82000
+Number of Boosted DM Events Reconstructed: 76581
+Ratio of Boosted DM Events Reconstructed: 0.9339146341463415
+
+Sample: newVertex/00b_newVertex/bdm_m10_b10_00b
+Number of Boosted DM Events Simulated: 75600
+Number of Boosted DM Events Reconstructed: 71057
+Ratio of Boosted DM Events Reconstructed: 0.9399074074074074
+
+Sample: newVertex/00b_newVertex/bdm_m20_b10_00b
+Number of Boosted DM Events Simulated: 69200
+Number of Boosted DM Events Reconstructed: 65283
+Ratio of Boosted DM Events Reconstructed: 0.9433959537572254
+
+Sample: newVertex/00b_newVertex/bdm_m40_b10_00b
+Number of Boosted DM Events Simulated: 84000
+Number of Boosted DM Events Reconstructed: 79451
+Ratio of Boosted DM Events Reconstructed: 0.9458452380952381
+
