@@ -10,9 +10,9 @@ from scipy.integrate import nquad
 plt.rcParams['text.usetex'] = True
 
 
-BACKGROUND_SYST_UC = 0.03
+BACKGROUND_SYST_UC = 0.01
 EFF_SYST_UC = 0.1
-NA_DUNE_UC = 0.05
+NA_DUNE_UC = 0.01
 N_THROWS=500
 N_BINS = 40
 STD_TO_90CL_SCALE = 1.318295

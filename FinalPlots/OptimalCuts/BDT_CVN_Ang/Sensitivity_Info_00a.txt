@@ -9,16 +9,6 @@ Number of Boosted DM Events Simulated: 100000
 Number of Boosted DM Events Reconstructed: 7795
 Ratio of Boosted DM Events Reconstructed: 0.07795
 
-Sample: newVertex/00a_newVertex/bdm_m05_b1p1_00a
-Number of Boosted DM Events Simulated: 100000
-Number of Boosted DM Events Reconstructed: 7795
-Ratio of Boosted DM Events Reconstructed: 0.07795
-
-Sample: newVertex/00a_newVertex/bdm_m05_b1p1_00a
-Number of Boosted DM Events Simulated: 100000
-Number of Boosted DM Events Reconstructed: 7795
-Ratio of Boosted DM Events Reconstructed: 0.07795
-
 Sample: newVertex/00a_newVertex/bdm_m10_b1p1_00a
 Number of Boosted DM Events Simulated: 100000
 Number of Boosted DM Events Reconstructed: 9450
