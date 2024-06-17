@@ -29,7 +29,7 @@ for index in range(0, len(labelsamples)):
         EvetsWithinOptAngCuts = AtmosphericSample[AtmosphericSample < OptimalAngCuts[index][0]].size +  AtmosphericSample[AtmosphericSample > OptimalAngCuts[index][1]].size
         print(f'Number of Atmospheric Neutrino Events inside the Angular Cuts: {EvetsWithinOptAngCuts} \n')
         print(f'Square root: {round(math.sqrt(EvetsWithinOptAngCuts))}')
-        print(f'Uncertainty: {round(math.sqrt(EvetsWithinOptAngCuts)/EvetsWithinOptAngCuts,3) }%')
+        print(f'Uncertainty: {round(math.sqrt(EvetsWithinOptAngCuts)/EvetsWithinOptAngCuts,3)*100 }%')
 
 #print(OptimalAngCuts[0])
 
