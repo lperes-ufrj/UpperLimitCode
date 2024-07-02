@@ -2,7 +2,7 @@
 
 Number of Atmospheric Neutrinos Events Simulated: 1928050
 Number of Atmospheric Neutrinos Events Reconstructed: 1420286
-Ratio of Atmospheric Neutrinos Events Reconstructed: 0.7328
+Ratio of Atmospheric Neutrinos Events Reconstructed: 0.7366437592386089
 
 Sample: newVertex/01a_newVertex/bdm_m05_b1p1_01a
 Number of Boosted DM Events Simulated: 100000

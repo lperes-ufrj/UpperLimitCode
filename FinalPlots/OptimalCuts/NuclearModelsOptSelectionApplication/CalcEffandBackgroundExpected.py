@@ -180,7 +180,7 @@ def BDTCut(BDT_Cut, BDT_Signal,BDT_Atm, CosSunSig_NoCVN, CosSunAtmNoCVN):
 
 # %%
 
-def AngularCutBothSides(CVNScore_NC,BDTScore,CosCutLeft,CosCutRight, nSignalSimulatedEvts): 
+def AngularCutBothSides(CVNScore_NC,BDTScore,CosCutLeft,CosCutRight, nSignalSimulatedEvts,ExpectedNumber10kty): 
     
     results = []
     SprimeMin = 999999999
@@ -196,7 +196,7 @@ def AngularCutBothSides(CVNScore_NC,BDTScore,CosCutLeft,CosCutRight, nSignalSimu
     CosSunSignalBDTCut, CosSunAtmBDTCut, BDTSignalCut, BDTAtmCut = BDTCut(BDTScore, BDTResponseSignal,BDTResponseAtm, CosSun_Signal_NoCVN, CosSun_Atm_NoCVN)
     CosSunSignalCVNCut, CosSunBgCVNCut, SignalEvts, BgEvts = CVNCut(CVNScore_NC, CVN_Signal_Valid, CVN_Atm_Valid, CosSun_Signal_wCVN, CosSun_Atm_wCVN)
     
-    BackgroundScale = 4 * 10 * RatioRecoAtm *2235.8 /nSimulatedEvtsAll_atm
+    BackgroundScale = 4 * 10 * RatioRecoAtm *ExpectedNumber10kty /nSimulatedEvtsAll_atm
     # = 40kt * 10 years * reco/simulated ratio * # atm nu expected for 10kt y * inside/out cvn cut ratio / #simulated atm nu events 
 
     CosCutsToRight = np.linspace(0.5,1.00,40)
@@ -236,13 +236,13 @@ def AngularCutBothSides(CVNScore_NC,BDTScore,CosCutLeft,CosCutRight, nSignalSimu
     return results
 
 
-RatioRecoAtm = 0.73280
+RatioRecoAtm = -1
 
 Eff_Bkg_default = np.loadtxt('../BDT_CVN_Ang/Eff_Bkg_index_00a.txt', delimiter=' ', usecols=[1,2,6,7], skiprows=1)
 
 #%% 
 
-for nuclearmodel in list_nuclearmodels:
+for nc_id, nuclearmodel in enumerate(list_nuclearmodels):
     infiles_list = ReadNuclearModelSamples(nuclearmodel)
     for SAMPLE_INDEX in range(0,len(infiles_list)):
         intrees_reco = [lambda arg=infile: arg.Get("ana/Atm") for infile in infiles_list]
@@ -254,6 +254,7 @@ for nuclearmodel in list_nuclearmodels:
     nSimulatedEvtsReco_atm = reco_entries[0]
     Reco_mom_Nu = np.reshape(TotalMomRecoRangeUnitVect_Reco, (nSimulatedEvtsReco_atm,3))
     Sun_Positions = np.loadtxt('../../background_sun_pos.dat', delimiter='\t', usecols=(0,1,2))
+
 
     hist_cos_reco = []
     for index, atmevt in enumerate(Reco_mom_Nu):
@@ -270,7 +271,19 @@ for nuclearmodel in list_nuclearmodels:
     plt.xlabel(r'$cos(\theta_{Sun, Reco})$',fontsize = 17)
     plt.savefig(nuclearmodel[0]+'/AngDist_Atmospheric_wrt_'+nuclearmodel[0]+'.pdf', format='pdf', dpi=300)
 
+    ExpectedNumber10kty = [2495.98, 2586.47, 2401.88]
+
+    ExpectedBkg = 0
+    if nc_id % 3 == 0:
+        ExpectedBkg = ExpectedNumber10kty[0]
+    if nc_id % 3 == 1:
+        ExpectedBkg = ExpectedNumber10kty[1]
+    if nc_id % 3 == 2:
+        ExpectedBkg = ExpectedNumber10kty[2]
+
+
     nSimulatedEvtsAll_atm = simu_entries[0]
+    RatioRecoAtm = nSimulatedEvtsReco_atm/nSimulatedEvtsAll_atm
 
     CVN_Atm = GetNpArraysFromTrees(intrees_reco[0](),"CVN_NCScore")
     BDTResponseAtm = GetBDTResponse(intrees_reco[0]())
@@ -331,7 +344,7 @@ for nuclearmodel in list_nuclearmodels:
 
         Sensitivity_results.write("Sample: "+str(sig_tree().GetCurrentFile().GetName()[28:-5])+"\n")
         Sensitivity_results.write("SigStrength\tNegCosCut\tPosCosCut\tbestEff\tBkgExpect\tBkgError\tCVNCut\tBDTCut\n")
-        resultsTwoAngCuts = AngularCutBothSides(CVNScore, BDT_Score, CosCutLeft, CosCutRight, nSignalSimulatedEvts)
+        resultsTwoAngCuts = AngularCutBothSides(CVNScore, BDT_Score, CosCutLeft, CosCutRight, nSignalSimulatedEvts,ExpectedBkg)
         
         if resultsTwoAngCuts[0] < SpMinTwoAngCuts:
             bestResultsTwoAngCuts = resultsTwoAngCuts

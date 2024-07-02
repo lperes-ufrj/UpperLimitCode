@@ -1,1 +1,0 @@
-indexSample	 ExpSigEvts	 BkgEvts	 CentralBkgEvts	 Eff	 CentralEff	 Numtargets_tmp	 Probability
