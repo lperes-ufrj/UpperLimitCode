@@ -1,0 +1,80 @@
+ =========== SYSTEMATICS AND PARAMETERS INCLUEDED ============  
+BACKGROUND_SYST_UC: 0.02
+EFF_SYST_UC: 0.15
+NA_DUNE_UC: 0.01
+N_THROWS: 600
+N_BINS: 40
+DECIMALS_PRECISION: 2
+ =========== CENTRAL LIMIT FOR GZ'^4 AND BANDS WITH 1 AND 2 SIGMAS ============  
+======== +2 Sigma Expeceted BG ========
+1.08702900966989e-06
+======== +2 Sigma Expeceted BG ========
+1.1068356118706235e-06
+======== +2 Sigma Expeceted BG ========
+1.1167389129709902e-06
+======== +2 Sigma Expeceted BG ========
+1.126642214071357e-06
+======== +2 Sigma Expeceted BG ========
+1.1299433144381462e-06
+======== +2 Sigma Expeceted BG ========
+1.1431477159053017e-06
+======== +2 Sigma Expeceted BG ========
+1.146448816272091e-06
+======== +2 Sigma Expeceted BG ========
+1.1530510170056685e-06
+======== +2 Sigma Expeceted BG ========
+1.1563521173724576e-06
+======== +2 Sigma Expeceted BG ========
+1.1596532177392464e-06
+======== +2 Sigma Expeceted BG ========
+1.1662554184728244e-06
+======== +2 Sigma Expeceted BG ========
+1.1695565188396132e-06
+======== +2 Sigma Expeceted BG ========
+1.1728576192064024e-06
+======== +2 Sigma Expeceted BG ========
+1.1761587195731911e-06
+======== +2 Sigma Expeceted BG ========
+1.1860620206735579e-06
+======== +2 Sigma Expeceted BG ========
+1.1893631210403467e-06
+======== +2 Sigma Expeceted BG ========
+1.1926642214071359e-06
+======== +2 Sigma Expeceted BG ========
+1.1959653217739246e-06
+======== +1 Sigma Expeceted BG ========
+3.0016672224074693e-06
+======== +1 Sigma Expeceted BG ========
+3.021473824608203e-06
+======== +1 Sigma Expeceted BG ========
+3.0346782260753583e-06
+======== +1 Sigma Expeceted BG ========
+3.0445815271757255e-06
+======== +1 Sigma Expeceted BG ========
+3.0478826275425143e-06
+======== +1 Sigma Expeceted BG ========
+3.051183727909303e-06
+======== +1 Sigma Expeceted BG ========
+3.0544848282760923e-06
+======== +1 Sigma Expeceted BG ========
+3.057785928642881e-06
+======== +1 Sigma Expeceted BG ========
+3.0676892297432478e-06
+======== +1 Sigma Expeceted BG ========
+3.0742914304768257e-06
+======== +1 Sigma Expeceted BG ========
+3.0808936312104037e-06
+======== CENTRAL VALUE ========
+4.034911637212404e-06
+======== CENTRAL VALUE ========
+4.038212737579193e-06
+======== CENTRAL VALUE ========
+4.041513837945982e-06
+======== CENTRAL VALUE ========
+4.044814938312771e-06
+======== CENTRAL VALUE ========
+4.04811603867956e-06
+======== CENTRAL VALUE ========
+4.051417139046349e-06
+======== -1 Sigma Expeceted BG ========
+8.933744581527178e-06

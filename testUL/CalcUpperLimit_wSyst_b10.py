@@ -29,7 +29,7 @@ NA_DUNE_UC = 0.01
 N_THROWS=600
 N_BINS = 50
 DECIMALS_PRECISION = 2
-STEPS_PROBING_GZ4 = 3000
+STEPS_PROBING_GZ4 = 5000
 
 # Number of target Argon nuclei and livetime of DUNE
 NA_dune = 4 * 1.5e32             # 40 kton
@@ -145,7 +145,7 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     plt.savefig(f'{path}/bkg_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
 
-    poi_m05 = np.linspace(5e-8,5e-6,STEPS_PROBING_GZ4)
+    poi_m05 = np.linspace(5e-8,2.5e-6,STEPS_PROBING_GZ4)
     poi_m10 = np.linspace(5e-8,5e-6,STEPS_PROBING_GZ4)
     poi_m20 = np.linspace(5e-8,5e-6,STEPS_PROBING_GZ4)
     poi_m40 = np.linspace(5e-8,5e-6,STEPS_PROBING_GZ4)
@@ -153,12 +153,13 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     poi = [poi_m05, poi_m10, poi_m20, poi_m40]
 
 
-    for gz4 in poi[i-8]: #Assumes the number of signal events
+    for gz4 in poi[i-8]: #Assumes the coupling constant to the fourth power
 
         #print(gz4)
-        S_syst = NA_dune_syst*xsec_list[i]*livetime_dune*flux_list[i]*eff_syst*(gz4**2) 
+        S_syst = NA_dune_syst*xsec_list[i]*livetime_dune*flux_list[i]*eff_syst*(gz4**2) # number of expected signal events with systematics throw.
         #print(S_syst)
-        s_cv = NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff_cv*(gz4**2) 
+        s_cv = NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff_cv*(gz4**2) # Number of expected signal events as central values.
+        
         #print((gz4**2))
         #print(s_cv)
         H_0 = np.random.poisson(B_syst[0],N_THROWS)

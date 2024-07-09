@@ -1,0 +1,10 @@
+SigStrength	NegCosCut	PosCosCut	bestEff	BkgExpect	BkgError	CVNCut	BDTCut
+18495.207 -0.900 0.900 0.015 2924.059 54.075 0.500 0.048 
+SigStrength	NegCosCut	PosCosCut	bestEff	BkgExpect	BkgError	CVNCut	BDTCut
+18041.391 -0.900 0.900 0.015 2775.547 52.683 0.600 0.048 
+SigStrength	NegCosCut	PosCosCut	bestEff	BkgExpect	BkgError	CVNCut	BDTCut
+16412.493 -0.900 0.900 0.015 2268.029 47.624 0.800 0.048 
+SigStrength	NegCosCut	PosCosCut	bestEff	BkgExpect	BkgError	CVNCut	BDTCut
+23499.356 -0.950 0.950 0.008 1144.588 33.832 0.800 0.048 
+SigStrength	NegCosCut	PosCosCut	bestEff	BkgExpect	BkgError	CVNCut	BDTCut
+14017.483 -0.900 0.900 0.015 1609.569 40.119 0.950 0.048 

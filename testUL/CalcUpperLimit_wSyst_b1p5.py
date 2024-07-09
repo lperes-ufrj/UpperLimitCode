@@ -27,9 +27,9 @@ BACKGROUND_SYST_UC = 0.02
 EFF_SYST_UC = 0.15
 NA_DUNE_UC = 0.01
 N_THROWS=600
-N_BINS = 40
+N_BINS = 50
 DECIMALS_PRECISION = 2
-STEPS_PROBING_GZ4 = 3000
+STEPS_PROBING_GZ4 = 5000
 
 # Number of target Argon nuclei and livetime of DUNE
 NA_dune = 4 * 1.5e32             # 40 kton
@@ -148,10 +148,10 @@ for i in range(4,8): #Each BDM sample gamma and mass value
     plt.savefig(f'{path}/bkg_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
 
-    poi_m05 = np.linspace(1e-7,1.2e-6,STEPS_PROBING_GZ4)
+    poi_m05 = np.linspace(5e-7,5e-6,STEPS_PROBING_GZ4)
     poi_m10 = np.linspace(1e-7,1.9e-6,STEPS_PROBING_GZ4)
     poi_m20 = np.linspace(1e-7,3e-6,STEPS_PROBING_GZ4)
-    poi_m40 = np.linspace(1e-7,8e-6,STEPS_PROBING_GZ4)
+    poi_m40 = np.linspace(5e-7,5e-5,STEPS_PROBING_GZ4)
 
     poi = [poi_m05, poi_m10, poi_m20, poi_m40]
 

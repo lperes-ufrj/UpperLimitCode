@@ -3,22 +3,12 @@ BACKGROUND_SYST_UC: 0.02
 EFF_SYST_UC: 0.15
 NA_DUNE_UC: 0.01
 N_THROWS: 600
-N_BINS: 40
+N_BINS: 50
 DECIMALS_PRECISION: 2
  =========== CENTRAL LIMIT FOR GZ'^4 AND BANDS WITH 1 AND 2 SIGMAS ============  
 ======== +2 Sigma Expeceted BG ========
-7.234244748249417e-07
-======== +2 Sigma Expeceted BG ========
-7.28376125375125e-07
-======== +2 Sigma Expeceted BG ========
-7.300266755585196e-07
-======== +2 Sigma Expeceted BG ========
-7.34978326108703e-07
-======== +1 Sigma Expeceted BG ========
-1.6279259753251084e-06
-======== +1 Sigma Expeceted BG ========
-1.6312270756918974e-06
-======== +1 Sigma Expeceted BG ========
-1.6345281760586862e-06
+7.376475295059012e-07
 ======== CENTRAL VALUE ========
-1.9662887629209737e-06
+1.955591118223645e-06
+======== -2 Sigma Expeceted BG ========
+5.460892178435688e-06

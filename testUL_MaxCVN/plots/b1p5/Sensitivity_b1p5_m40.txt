@@ -1,0 +1,58 @@
+ =========== SYSTEMATICS AND PARAMETERS INCLUEDED ============  
+BACKGROUND_SYST_UC: 0.02
+EFF_SYST_UC: 0.2
+NA_DUNE_UC: 0.01
+N_THROWS: 700
+N_BINS: 50
+ROUND_PRECISION: 3
+ =========== CENTRAL LIMIT FOR GZ'^4 AND BANDS WITH 1 AND 2 SIGMAS ============  
+======== +2 Sigma Expeceted BG ========
+8.659329664832416e-07
+======== +2 Sigma Expeceted BG ========
+8.769384692346172e-07
+======== +2 Sigma Expeceted BG ========
+8.87943971985993e-07
+======== +2 Sigma Expeceted BG ========
+8.934467233616808e-07
+======== +2 Sigma Expeceted BG ========
+8.961980990495247e-07
+======== +2 Sigma Expeceted BG ========
+8.989494747373687e-07
+======== +2 Sigma Expeceted BG ========
+9.017008504252125e-07
+======== +2 Sigma Expeceted BG ========
+9.044522261130566e-07
+======== +2 Sigma Expeceted BG ========
+9.072036018009004e-07
+======== +2 Sigma Expeceted BG ========
+9.127063531765883e-07
+======== +2 Sigma Expeceted BG ========
+9.2096048024012e-07
+======== +1 Sigma Expeceted BG ========
+2.0985492746373187e-06
+======== +1 Sigma Expeceted BG ========
+2.1095547773886944e-06
+======== +1 Sigma Expeceted BG ========
+2.112306153076538e-06
+======== +1 Sigma Expeceted BG ========
+2.115057528764382e-06
+======== +1 Sigma Expeceted BG ========
+2.117808904452226e-06
+======== +1 Sigma Expeceted BG ========
+2.12056028014007e-06
+======== CENTRAL VALUE ========
+2.5855427713856925e-06
+======== CENTRAL VALUE ========
+2.5882941470735368e-06
+======== CENTRAL VALUE ========
+2.5910455227613806e-06
+======== CENTRAL VALUE ========
+2.5937968984492244e-06
+======== -1 Sigma Expeceted BG ========
+4.052026013006503e-06
+======== -1 Sigma Expeceted BG ========
+4.054777388694347e-06
+======== -2 Sigma Expeceted BG ========
+4.987493746873437e-06
+======== -2 Sigma Expeceted BG ========
+4.995747873936969e-06

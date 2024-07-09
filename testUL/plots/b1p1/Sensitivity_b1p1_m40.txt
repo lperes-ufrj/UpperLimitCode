@@ -1,0 +1,36 @@
+ =========== SYSTEMATICS AND PARAMETERS INCLUEDED ============  
+BACKGROUND_SYST_UC: 0.02
+EFF_SYST_UC: 0.15
+NA_DUNE_UC: 0.01
+N_THROWS: 600
+N_BINS: 40
+DECIMALS_PRECISION: 2
+ =========== CENTRAL LIMIT FOR GZ'^4 AND BANDS WITH 1 AND 2 SIGMAS ============  
+======== +1 Sigma Expeceted BG ========
+1e-07
+======== +1 Sigma Expeceted BG ========
+1.1663887962654217e-07
+======== +2 Sigma Expeceted BG ========
+1.93027675891964e-06
+======== +2 Sigma Expeceted BG ========
+1.9968322774258087e-06
+======== +2 Sigma Expeceted BG ========
+2.0134711570523506e-06
+======== +1 Sigma Expeceted BG ========
+5.025108369456485e-06
+======== +1 Sigma Expeceted BG ========
+5.041747249083027e-06
+======== CENTRAL VALUE ========
+6.905301767255751e-06
+======== CENTRAL VALUE ========
+6.921940646882294e-06
+======== CENTRAL VALUE ========
+6.938579526508836e-06
+======== -1 Sigma Expeceted BG ========
+1.537449149716572e-05
+======== -2 Sigma Expeceted BG ========
+1.7853684561520503e-05
+======== -2 Sigma Expeceted BG ========
+1.7870323441147048e-05
+======== -2 Sigma Expeceted BG ========
+1.788696232077359e-05
