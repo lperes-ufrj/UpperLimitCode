@@ -23,12 +23,12 @@ if not isExist:
 plt.rcParams['text.usetex'] = True
 
 
-BACKGROUND_SYST_UC = 0.02
+BACKGROUND_SYST_UC = 0.01
 EFF_SYST_UC = 0.2
 NA_DUNE_UC = 0.01
 N_THROWS=700
 N_BINS = 50
-DECIMALS_PRECISION = 2
+DECIMALS_PRECISION = 3
 STEPS_PROBING_GZ4 = 1500
 
 # Number of target Argon nuclei and livetime of DUNE
@@ -112,8 +112,6 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     
     
 
-    
-
     eff_syst = np.random.normal(eff_cv,EFF_SYST_UC*eff_cv,N_THROWS) # Throw the overall efficiency inside a systematic un.
     B_syst = np.random.normal(b_cv,BACKGROUND_SYST_UC*b_cv,N_THROWS) # Throw the background number inside a systematic un.
     NA_dune_syst = np.random.normal(NA_dune,NA_dune*NA_DUNE_UC, N_THROWS) #Throw the number of targets (Fiducial Mass) inside a systematic un.
@@ -134,15 +132,12 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     for nuclear_model in range(N_THROWS):
         shifts_b_eff.append(optimals[nm_shift[nuclear_model]][i][:]/optimals[0][i][:])
        
-  
-
     shifts_b_eff = np.array(shifts_b_eff)
-    #print(shifts_b_eff)
-    #print(shifts_b_eff[:,0])
-    #print(eff_syst.size)
-    #print(shifts_b_eff[:,0].size)
-    eff_syst = shifts_b_eff[:,0]*eff_syst
 
+    B_syst = np.round(B_syst) # take it as integer number
+    B_syst = (NA_dune_syst/NA_dune)*(eff_syst/eff_cv)*shifts_b_eff[:,1]*B_syst
+
+    eff_syst = shifts_b_eff[:,0]*eff_syst
     eff_syst = eff_syst[eff_syst>0] # Physical cut, only positive background events.
 
     #print(eff_syst.size)
@@ -152,12 +147,12 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     plt.savefig(f'{path}/eff_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
 
-    B_syst = np.round(B_syst) # take it as integer number
-    B_syst = (NA_dune_syst/NA_dune)*shifts_b_eff[:,1]*B_syst
+   # B_syst = np.round(B_syst) # take it as integer number
+   # B_syst = (NA_dune_syst/NA_dune)*shifts_b_eff[:,1]*B_syst
     
     #print(B_syst.size)
-    B_syst = B_syst[B_syst>0] # Physical cut, only positive background events.
-    print(B_syst.size, eff_syst.size)
+    #B_syst = B_syst[B_syst>0] # Physical cut, only positive background events.
+    #print(B_syst.size, eff_syst.size)
 
     plt.figure(dpi=300)
     plt.hist(B_syst, bins = 50, label='bkg number throws syst.')
@@ -191,8 +186,8 @@ for i in range(8,12): #Each BDM sample gamma and mass value
             H_1 = np.concatenate((H_1,h1_i))
         Q_0 = poisson.pmf(H_0, s_cv+b_cv)/poisson.pmf(H_0, b_cv)
         Q_1 = poisson.pmf(H_1, s_cv+b_cv)/poisson.pmf(H_1, b_cv)
-        nllr_h0 = np.minimum(10000., np.maximum(-10000., -2*np.log(Q_0)))
-        nllr_h1 = np.minimum(10000., np.maximum(-10000., -2*np.log(Q_1)))
+        nllr_h0 = np.minimum(200., np.maximum(-200., -2*np.log(Q_0)))
+        nllr_h1 = np.minimum(200., np.maximum(-200., -2*np.log(Q_1)))
     
     ################################################################
     #          CENTRAL VALUE          --  PRINT AND SAVE           #
@@ -221,7 +216,7 @@ for i in range(8,12): #Each BDM sample gamma and mass value
         lowband_twosigma_bkg_signal = np.percentile(nllr_h1,99) #0.1 = CL_{s+b}/0.025 ==> CL_{s+b}  = 0.0025
         
         
-        plot_flag = False
+        plot_flag = True
         cl_sb = per95_signal_bkg
 
         if (np.round(per95_signal_bkg,DECIMALS_PRECISION)==np.round(median_bkg_only,DECIMALS_PRECISION)):

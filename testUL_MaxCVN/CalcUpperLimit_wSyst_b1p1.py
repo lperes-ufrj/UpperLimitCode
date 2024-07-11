@@ -23,12 +23,12 @@ if not isExist:
 plt.rcParams['text.usetex'] = True
 
 
-BACKGROUND_SYST_UC = 0.02
-EFF_SYST_UC = 0.2
+BACKGROUND_SYST_UC = 0.05
+EFF_SYST_UC = 0.3
 NA_DUNE_UC = 0.01
-N_THROWS=700
+N_THROWS=500
 N_BINS = 50
-DECIMALS_PRECISION = 3
+DECIMALS_PRECISION = 2
 STEPS_PROBING_GZ4 = 2000
 
 # Number of target Argon nuclei and livetime of DUNE
@@ -127,6 +127,9 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     #print(shifts_b_eff)
     #print(shifts_b_eff[:,0])
 
+    B_syst = np.round(B_syst) # take it as integer number
+    B_syst = (NA_dune_syst/NA_dune)*(eff_syst/eff_cv)*shifts_b_eff[:,1]*B_syst
+
     eff_syst = shifts_b_eff[:,0]*eff_syst
     eff_syst = eff_syst[eff_syst>0] # Physical cut, only positive background events.
 
@@ -135,9 +138,6 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     plt.xlabel(r'Overall signal efficiency throw $\epsilon_{Ar}$')
     plt.savefig(f'{path}/eff_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
-
-    B_syst = np.round(B_syst) # take it as integer number
-    B_syst = (NA_dune_syst/NA_dune)*shifts_b_eff[:,1]*B_syst
     
     B_syst = B_syst[B_syst>0] # Physical cut, only positive background events.
     #print(B_syst.size, eff_syst.size)
@@ -148,7 +148,7 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     plt.savefig(f'{path}/bkg_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
 
-    poi_m05 = np.linspace(3e-7,1e-5,STEPS_PROBING_GZ4)
+    poi_m05 = np.linspace(3e-7,1.5e-5,STEPS_PROBING_GZ4)
     poi_m10 = np.linspace(3e-7,1.5e-5,STEPS_PROBING_GZ4)
     poi_m20 = np.linspace(5e-7,2.5e-5,STEPS_PROBING_GZ4)
     poi_m40 = np.linspace(5e-7,4e-5,STEPS_PROBING_GZ4)
@@ -173,9 +173,11 @@ for i in range(0,4): #Each BDM sample gamma and mass value
             H_1 = np.concatenate((H_1,h1_i))
         Q_0 = poisson.pmf(H_0, s_cv+b_cv)/poisson.pmf(H_0, b_cv)
         Q_1 = poisson.pmf(H_1, s_cv+b_cv)/poisson.pmf(H_1, b_cv)
-        nllr_h0 = np.minimum(10000., np.maximum(-10000., -2*np.log(Q_0)))
-        nllr_h1 = np.minimum(10000., np.maximum(-10000., -2*np.log(Q_1)))
+        nllr_h0 = np.minimum(1000., np.maximum(-1000., -2*np.log(Q_0)))
+        nllr_h1 = np.minimum(1000., np.maximum(-1000., -2*np.log(Q_1)))
     
+        #nllr_h0 = -2*np.log(Q_0)
+        #nllr_h1 =  -2*np.log(Q_1)
     ################################################################
     #          CENTRAL VALUE          --  PRINT AND SAVE           #
     ################################################################
