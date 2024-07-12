@@ -23,13 +23,24 @@ if not isExist:
 plt.rcParams['text.usetex'] = True
 
 
-BACKGROUND_SYST_UC = 0.05
+# Generate random numbers using inverse transform sampling
+def sample_from_cdf(cdf, size=1):
+    # Generate random values uniformly distributed between 0 and 1
+    random_values = np.random.rand(size)
+
+    # Use searchsorted to find the indices where the random values would be inserted
+    # to maintain the order of the CDF
+    random_indices = np.searchsorted(cdf, random_values)
+
+    return random_indices
+
+BACKGROUND_SYST_UC = 0.06
 EFF_SYST_UC = 0.3
 NA_DUNE_UC = 0.01
-N_THROWS=500
-N_BINS = 50
+N_THROWS=4000
+N_BINS = 40
 DECIMALS_PRECISION = 2
-STEPS_PROBING_GZ4 = 2000
+STEPS_PROBING_GZ4 = 1500
 
 # Number of target Argon nuclei and livetime of DUNE
 NA_dune = 4 * 1.5e32             # 40 kton
@@ -128,19 +139,27 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     #print(shifts_b_eff[:,0])
 
     B_syst = np.round(B_syst) # take it as integer number
-    B_syst = (NA_dune_syst/NA_dune)*(eff_syst/eff_cv)*shifts_b_eff[:,1]*B_syst
+    #B_syst = (NA_dune_syst/NA_dune)*(eff_syst/eff_cv)*shifts_b_eff[:,1]*B_syst
+    B_syst = (NA_dune_syst/NA_dune)*B_syst
 
     eff_syst = shifts_b_eff[:,0]*eff_syst
-    eff_syst = eff_syst[eff_syst>0] # Physical cut, only positive background events.
+    B_syst = B_syst[eff_syst>0]
+    NA_dune_syst = NA_dune_syst[eff_syst>0] # Physical cut, only positive background events.
+    eff_syst = eff_syst[eff_syst>0] 
+
 
     plt.figure(dpi=300)
     plt.hist(eff_syst, bins = 50, label='eff throws syst.')
     plt.xlabel(r'Overall signal efficiency throw $\epsilon_{Ar}$')
-    plt.savefig(f'{path}/eff_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+    plt.savefig(f'{path}/true_eff_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
+    plt.close()
+
+    plt.figure(dpi=300)
+    plt.hist(eff_syst_samples, bins = 50, label='eff throws syst.')
+    plt.xlabel(r'Overall signal efficiency throw $\epsilon_{Ar}$')
+    plt.savefig(f'{path}/throws_eff_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
     
-    B_syst = B_syst[B_syst>0] # Physical cut, only positive background events.
-    #print(B_syst.size, eff_syst.size)
 
     plt.figure(dpi=300)
     plt.hist(B_syst, bins = 50, label='bkg number throws syst.')
@@ -148,10 +167,10 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     plt.savefig(f'{path}/bkg_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
 
-    poi_m05 = np.linspace(3e-7,1.5e-5,STEPS_PROBING_GZ4)
-    poi_m10 = np.linspace(3e-7,1.5e-5,STEPS_PROBING_GZ4)
-    poi_m20 = np.linspace(5e-7,2.5e-5,STEPS_PROBING_GZ4)
-    poi_m40 = np.linspace(5e-7,4e-5,STEPS_PROBING_GZ4)
+    poi_m05 = np.linspace(1e-6,3.5e-5,STEPS_PROBING_GZ4)
+    poi_m10 = np.linspace(1e-6,2e-5,STEPS_PROBING_GZ4)
+    poi_m20 = np.linspace(1e-6,1.5e-5,STEPS_PROBING_GZ4)
+    poi_m40 = np.linspace(1e-6,1e-5,STEPS_PROBING_GZ4)
 
     poi = [poi_m05, poi_m10, poi_m20, poi_m40]
 

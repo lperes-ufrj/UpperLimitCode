@@ -373,3 +373,4 @@ for i in range(8,12): #Each BDM sample gamma and mass value
 print("Finished!")
 
    
+#### Eff and Background for each nuclear model selected
