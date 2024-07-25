@@ -16,31 +16,18 @@ isExist = os.path.exists(path)
 if not isExist:
    # Create a new directory because it does not exist
    os.makedirs(path)
-   print("The new directory is created!")
-
+   #print("The new directory is created!")
 
 
 plt.rcParams['text.usetex'] = True
 
-
-# Generate random numbers using inverse transform sampling
-def sample_from_cdf(cdf, size=1):
-    # Generate random values uniformly distributed between 0 and 1
-    random_values = np.random.rand(size)
-
-    # Use searchsorted to find the indices where the random values would be inserted
-    # to maintain the order of the CDF
-    random_indices = np.searchsorted(cdf, random_values)
-
-    return random_indices
-
-BACKGROUND_SYST_UC = 0.06
-EFF_SYST_UC = 0.3
+BACKGROUND_SYST_UC = 0.08
+EFF_SYST_UC = 0.2
 NA_DUNE_UC = 0.01
-N_THROWS=4000
+N_THROWS=500
 N_BINS = 40
-DECIMALS_PRECISION = 2
-STEPS_PROBING_GZ4 = 1500
+DECIMALS_PRECISION = 1
+STEPS_PROBING_GZ4 = 3000
 
 # Number of target Argon nuclei and livetime of DUNE
 NA_dune = 4 * 1.5e32             # 40 kton
@@ -84,7 +71,7 @@ optimals = readtxt(infiles) # read values from the optimal cuts
 #==== second collumn BDM sample 
 #==== third collumn firt entry overall signal efficiency second entry expected background number
 
-#print(str(path))
+##print(str(path))
 for i in range(0,4): #Each BDM sample gamma and mass value 
 
 
@@ -116,8 +103,6 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     lowband_onesigma_bkg_signal_arr = []
     lowband_twosigma_bkg_signal_arr = []
 
-
-
     SoverB = [] # array (list) of the signal background ratio for each number of signal (fixed B)
     
 
@@ -129,71 +114,68 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     B_syst = np.random.normal(b_cv,BACKGROUND_SYST_UC*b_cv,N_THROWS) # Throw the background number inside a systematic un.
     NA_dune_syst = np.random.normal(NA_dune,NA_dune*NA_DUNE_UC, N_THROWS) #Throw the number of targets (Fiducial Mass) inside a systematic un.
     
+    print(B_syst)
     shifts_b_eff=[]      
 
     for nuclear_model in range(N_THROWS):
         shifts_b_eff.append(optimals[nm_shift[nuclear_model]][i][:]/optimals[0][i][:])
 
     shifts_b_eff = np.array(shifts_b_eff)
-    #print(shifts_b_eff)
-    #print(shifts_b_eff[:,0])
+    ##print(shifts_b_eff)
+    ##print(shifts_b_eff[:,0])
 
     B_syst = np.round(B_syst) # take it as integer number
     #B_syst = (NA_dune_syst/NA_dune)*(eff_syst/eff_cv)*shifts_b_eff[:,1]*B_syst
     B_syst = (NA_dune_syst/NA_dune)*B_syst
 
     eff_syst = shifts_b_eff[:,0]*eff_syst
-    B_syst = B_syst[eff_syst>0]
+    B_syst = np.joround(B_syst[eff_syst>0])
     NA_dune_syst = NA_dune_syst[eff_syst>0] # Physical cut, only positive background events.
     eff_syst = eff_syst[eff_syst>0] 
 
 
     plt.figure(dpi=300)
-    plt.hist(eff_syst, bins = 50, label='eff throws syst.')
+    plt.hist(eff_syst, bins = N_BINS, label='eff throws syst.')
     plt.xlabel(r'Overall signal efficiency throw $\epsilon_{Ar}$')
     plt.savefig(f'{path}/true_eff_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
 
     plt.figure(dpi=300)
-    plt.hist(eff_syst_samples, bins = 50, label='eff throws syst.')
-    plt.xlabel(r'Overall signal efficiency throw $\epsilon_{Ar}$')
-    plt.savefig(f'{path}/throws_eff_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
-    plt.close()
-    
-
-    plt.figure(dpi=300)
-    plt.hist(B_syst, bins = 50, label='bkg number throws syst.')
+    plt.hist(B_syst, bins = N_BINS, label='bkg number throws syst.')
     plt.xlabel(r'Expected Background Events ($b$) Throw')
     plt.savefig(f'{path}/bkg_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
 
     poi_m05 = np.linspace(1e-6,3.5e-5,STEPS_PROBING_GZ4)
     poi_m10 = np.linspace(1e-6,2e-5,STEPS_PROBING_GZ4)
-    poi_m20 = np.linspace(1e-6,1.5e-5,STEPS_PROBING_GZ4)
-    poi_m40 = np.linspace(1e-6,1e-5,STEPS_PROBING_GZ4)
+    poi_m20 = np.linspace(1e-6,5e-5,STEPS_PROBING_GZ4)
+    poi_m40 = np.linspace(1e-6,1e-4,STEPS_PROBING_GZ4)
 
     poi = [poi_m05, poi_m10, poi_m20, poi_m40]
 
 
     for gz4 in poi[i]: #Assumes the number of signal events
 
-        #print(gz4)
+        ##print(gz4)
         S_syst = NA_dune_syst*xsec_list[i]*livetime_dune*flux_list[i]*eff_syst*(gz4**2) 
-        #print(S_syst)
+        ##print(S_syst)
         s_cv = NA_dune*xsec_list[i]*livetime_dune*flux_list[i]*eff_cv*(gz4**2) 
-        #print((gz4**2))
-        #print(s_cv)
+        ##print((gz4**2))
+        ##print(s_cv)
         H_0 = np.random.poisson(B_syst[0],N_THROWS)
         H_1 = np.random.poisson(B_syst[0]+S_syst[0],N_THROWS)
         for index, bi in enumerate(B_syst[1:]):
             h0_i = np.random.poisson(bi,N_THROWS)
             H_0 = np.concatenate((H_0,h0_i))
-            h1_i = np.random.poisson(bi+S_syst[index],N_THROWS)
+            h1_i = np.random.poisson(bi+S_syst[index+1],N_THROWS)
             H_1 = np.concatenate((H_1,h1_i))
         Q_0 = poisson.pmf(H_0, s_cv+b_cv)/poisson.pmf(H_0, b_cv)
         Q_1 = poisson.pmf(H_1, s_cv+b_cv)/poisson.pmf(H_1, b_cv)
-        nllr_h0 = np.minimum(1000., np.maximum(-1000., -2*np.log(Q_0)))
-        nllr_h1 = np.minimum(1000., np.maximum(-1000., -2*np.log(Q_1)))
+        print(poisson.pmf(H_1, s_cv+b_cv), poisson.pmf(H_1, b_cv),Q_1)
+
+
+        nllr_h0 = np.minimum(10000., np.maximum(-10000., -2*np.log(Q_0)))
+        nllr_h1 = np.minimum(10000., np.maximum(-10000., -2*np.log(Q_1)))
     
         #nllr_h0 = -2*np.log(Q_0)
         #nllr_h1 =  -2*np.log(Q_1)
@@ -230,37 +212,37 @@ for i in range(0,4): #Each BDM sample gamma and mass value
         if (np.round(per95_signal_bkg,DECIMALS_PRECISION)==np.round(median_bkg_only,DECIMALS_PRECISION)):
             Sensitivity_Info.write("======== CENTRAL VALUE ========\n")
             Sensitivity_Info.write(str(gz4)+'\n')
-            print("====== CENTRAL VALUE ========\n")
-            print(gz4)
+            #print("====== CENTRAL VALUE ========\n")
+            #print(gz4)
             plot_flag = True
             cl_sb = per95_signal_bkg
         if (np.round(upband_onesigma_bkg_only,DECIMALS_PRECISION) == np.round(upband_onesigma_bkg_signal,DECIMALS_PRECISION)):
             Sensitivity_Info.write("======== +1 Sigma Expeceted BG ========\n")
             Sensitivity_Info.write(str(gz4)+'\n')
-            print(" + 1 sigma: \n")
-            print(gz4)
+            #print(" + 1 sigma: \n")
+            #print(gz4)
             plot_flag = True
             cl_sb = upband_onesigma_bkg_signal
         if (np.round(upband_twosigma_bkg_only,DECIMALS_PRECISION) == np.round(upband_twosigma_bkg_signal,DECIMALS_PRECISION)):
             if (s_cv > 2):
                 Sensitivity_Info.write("======== +2 Sigma Expeceted BG ========\n")
                 Sensitivity_Info.write(str(gz4)+'\n')
-                print(" + 2 sigma: \n")
-                print(gz4)
+                #print(" + 2 sigma: \n")
+                #print(gz4)
                 plot_flag = True
                 cl_sb = upband_twosigma_bkg_signal
         if (np.round(lowband_onesigma_bkg_only,DECIMALS_PRECISION) == np.round(lowband_onesigma_bkg_signal,DECIMALS_PRECISION)):
             Sensitivity_Info.write("======== -1 Sigma Expeceted BG ========\n")
             Sensitivity_Info.write(str(gz4)+'\n')
-            print(" - 1 sigma: \n")
-            print(gz4)
+            #print(" - 1 sigma: \n")
+            #print(gz4)
             plot_flag = True
             cl_sb = lowband_onesigma_bkg_signal
         if (np.round(lowband_twosigma_bkg_only,DECIMALS_PRECISION) == np.round(lowband_twosigma_bkg_signal,DECIMALS_PRECISION)):
             Sensitivity_Info.write("======== -2 Sigma Expeceted BG ========\n")
             Sensitivity_Info.write(str(gz4)+'\n')
-            print("- 2 sigma: \n")
-            print(gz4)
+            #print("- 2 sigma: \n")
+            #print(gz4)
             plot_flag = True
             cl_sb = lowband_twosigma_bkg_signal
 
@@ -282,7 +264,7 @@ for i in range(0,4): #Each BDM sample gamma and mass value
         SoverB.append(s_cv/b_cv)
         
         if(plot_flag):
-            print(nllr_h0.size,nllr_h1.size)
+            #print(nllr_h0.size,nllr_h1.size)
             plt.figure(dpi=300)
             plt.title(fr'$log(g_Z^4)$: {math.log(gz4):.6f} B: {b_cv:.0f}')
             plt.hist(nllr_h0, bins=N_BINS, histtype='step', label="Only Background")
@@ -312,7 +294,7 @@ for i in range(0,4): #Each BDM sample gamma and mass value
 
             plt.legend()
             plt.savefig(f'{path}/new_Sens_s{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
-            #print("Printed!")
+            ##print("Printed!")
             plt.close()  
 
     poi_sample = np.array(poi[i])
@@ -345,21 +327,6 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     plt.close()  
 
     ################################################################
-    #          PLOT FIGURE        S+B WITH 90%CL LIMITS            #
-    ################################################################
-    fig, ax = plt.subplots(dpi=300)
-    ax.plot(poi_sample,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
-    plt.xlabel(r"$g_{Z^{\prime}}^4$", fontsize = 15)
-    plt.ylabel('NLLR', fontsize = 15)
-    ax.plot(poi_sample,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
-    ax.fill_between(poi_sample,lowband_onesigma_bkg_signal_arr, upband_onesigma_bkg_signal_arr,alpha=0.5,label = r'$\pm 1\sigma$')
-    ax.fill_between(poi_sample,lowband_twosigma_bkg_signal_arr, upband_twosigma_bkg_signal_arr,alpha=.5,label = r'$\pm 2\sigma $')
-
-    ax.legend(title = list_samples_latex[i], loc='lower left')
-    fig.savefig(f'{path}/new_S_PLUS_B_LLR_s{s_cv:.0f}_'+labelsamples[i]+'_wNASyst.pdf', format='pdf', dpi=600)
-    plt.close()  
-
-    ################################################################
     #          PLOT FIGURE      BG ONLY WITH 90%CL LIMITS          #
     ################################################################
     fig, ax = plt.subplots(dpi=300)
@@ -378,6 +345,6 @@ for i in range(0,4): #Each BDM sample gamma and mass value
     Sensitivity_Info.close()
 
    
-print("Finished!")
+#print("Finished!")
 
    

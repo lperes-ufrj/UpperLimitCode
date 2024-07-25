@@ -18,18 +18,15 @@ if not isExist:
    os.makedirs(path)
    print("The new directory is created!")
 
-
-
 plt.rcParams['text.usetex'] = True
 
-
-BACKGROUND_SYST_UC = 0.01
+BACKGROUND_SYST_UC = 0.09
 EFF_SYST_UC = 0.2
 NA_DUNE_UC = 0.01
-N_THROWS=700
-N_BINS = 50
-DECIMALS_PRECISION = 3
-STEPS_PROBING_GZ4 = 1500
+N_THROWS=3000
+N_BINS = 30
+DECIMALS_PRECISION = 1
+STEPS_PROBING_GZ4 = 300
 
 # Number of target Argon nuclei and livetime of DUNE
 NA_dune = 4 * 1.5e32             # 40 kton
@@ -135,14 +132,16 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     shifts_b_eff = np.array(shifts_b_eff)
 
     B_syst = np.round(B_syst) # take it as integer number
-    B_syst = (NA_dune_syst/NA_dune)*(eff_syst/eff_cv)*shifts_b_eff[:,1]*B_syst
+    B_syst = (NA_dune_syst/NA_dune)*B_syst
 
     eff_syst = shifts_b_eff[:,0]*eff_syst
+    B_syst = B_syst[eff_syst>0]
+    NA_dune_syst = NA_dune_syst[eff_syst>0]
     eff_syst = eff_syst[eff_syst>0] # Physical cut, only positive background events.
 
     #print(eff_syst.size)
     plt.figure(dpi=300)
-    plt.hist(eff_syst, bins = 50, label='eff throws syst.')
+    plt.hist(eff_syst, bins = N_BINS, label='eff throws syst.')
     plt.xlabel(r'Overall signal efficiency throw $\epsilon_{Ar}$')
     plt.savefig(f'{path}/eff_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
@@ -155,12 +154,12 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     #print(B_syst.size, eff_syst.size)
 
     plt.figure(dpi=300)
-    plt.hist(B_syst, bins = 50, label='bkg number throws syst.')
+    plt.hist(B_syst, bins = N_BINS, label='bkg number throws syst.')
     plt.xlabel(r'Expected Background Events ($b$) Throw')
     plt.savefig(f'{path}/bkg_syst_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()
 
-    poi_m05 = np.linspace(7e-8,6e-7,STEPS_PROBING_GZ4)
+    poi_m05 = np.linspace(5e-8,8e-7,STEPS_PROBING_GZ4)
     poi_m10 = np.linspace(1e-7,1.2e-6,STEPS_PROBING_GZ4)
     poi_m20 = np.linspace(1e-7,2e-6,STEPS_PROBING_GZ4)
     poi_m40 = np.linspace(5e-7,5e-6,STEPS_PROBING_GZ4)
@@ -168,7 +167,7 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     poi = [poi_m05, poi_m10, poi_m20, poi_m40]
 
 
-    for gz4 in poi[i-8]: #Assumes the coupling constant to the fourth power
+    for id, gz4 in enumerate(poi[i-8]): #Assumes the coupling constant to the fourth power
 
         #print(gz4)
         S_syst = NA_dune_syst*xsec_list[i]*livetime_dune*flux_list[i]*eff_syst*(gz4**2) # number of expected signal events with systematics throw.
@@ -186,8 +185,8 @@ for i in range(8,12): #Each BDM sample gamma and mass value
             H_1 = np.concatenate((H_1,h1_i))
         Q_0 = poisson.pmf(H_0, s_cv+b_cv)/poisson.pmf(H_0, b_cv)
         Q_1 = poisson.pmf(H_1, s_cv+b_cv)/poisson.pmf(H_1, b_cv)
-        nllr_h0 = np.minimum(200., np.maximum(-200., -2*np.log(Q_0)))
-        nllr_h1 = np.minimum(200., np.maximum(-200., -2*np.log(Q_1)))
+        nllr_h0 = np.minimum(10000., np.maximum(-10000., -2*np.log(Q_0)))
+        nllr_h1 = np.minimum(10000., np.maximum(-10000., -2*np.log(Q_1)))
     
     ################################################################
     #          CENTRAL VALUE          --  PRINT AND SAVE           #
@@ -216,7 +215,9 @@ for i in range(8,12): #Each BDM sample gamma and mass value
         lowband_twosigma_bkg_signal = np.percentile(nllr_h1,99) #0.1 = CL_{s+b}/0.025 ==> CL_{s+b}  = 0.0025
         
         
-        plot_flag = True
+        plot_flag = False
+        if id > 70:
+            plot_flag = True
         cl_sb = per95_signal_bkg
 
         if (np.round(per95_signal_bkg,DECIMALS_PRECISION)==np.round(median_bkg_only,DECIMALS_PRECISION)):
@@ -323,7 +324,6 @@ for i in range(8,12): #Each BDM sample gamma and mass value
 
     SoverB = np.array(SoverB)
 
-
     ################################################################
     #          PLOT FIGURE        S/B CENTRAL VALUE                #
     ################################################################
@@ -336,20 +336,6 @@ for i in range(8,12): #Each BDM sample gamma and mass value
     fig.savefig(f'{path}/signalBkgRatio_{s_cv:.0f}_'+labelsamples[i]+'.pdf', format='pdf', dpi=600)
     plt.close()  
 
-    ################################################################
-    #          PLOT FIGURE        S+B WITH 90%CL LIMITS            #
-    ################################################################
-    fig, ax = plt.subplots(dpi=300)
-    ax.plot(poi_sample,median_bkg_only_arr,linestyle='--', label = r'NLLR$_{BG-Only}$')
-    plt.xlabel(r"$g_{Z^{\prime}}^4$", fontsize = 15)
-    plt.ylabel('NLLR', fontsize = 15)
-    ax.plot(poi_sample,median_signal_bkg_arr,linestyle='--', label = r'NLLR$_{S+B}$', color = 'red')
-    ax.fill_between(poi_sample,lowband_onesigma_bkg_signal_arr, upband_onesigma_bkg_signal_arr,alpha=0.5,label = r'$\pm 1\sigma$')
-    ax.fill_between(poi_sample,lowband_twosigma_bkg_signal_arr, upband_twosigma_bkg_signal_arr,alpha=.5,label = r'$\pm 2\sigma $')
-
-    ax.legend(title = list_samples_latex[i], loc='lower left')
-    fig.savefig(f'{path}/new_S_PLUS_B_LLR_s{s_cv:.0f}_'+labelsamples[i]+'_wNASyst.pdf', format='pdf', dpi=600)
-    plt.close()  
 
     ################################################################
     #          PLOT FIGURE      BG ONLY WITH 90%CL LIMITS          #

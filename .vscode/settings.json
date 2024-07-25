@@ -108,5 +108,6 @@
         "bayesian_num_posterior_bdm_hA_BR_b1p1_m40.C": "cpp",
         "bayesian_num_posterior_bdm_hA_BR_b1p1_m20.C": "cpp"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "cSpell.enabled": false
 }
