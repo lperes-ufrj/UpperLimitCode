@@ -1,1 +1,0 @@
-../FinalPlots/OptimalCuts/NuclearModelsOptSelectionApplication/hN_LFG/Eff_Bkg_index_01b.txt

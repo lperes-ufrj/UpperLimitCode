@@ -1,0 +1,36 @@
+ =========== SYSTEMATICS AND PARAMETERS INCLUEDED ============  
+BACKGROUND_SYST_UC: 0.02
+EFF_SYST_UC: 0.25
+NA_DUNE_UC: 0.01
+N_THROWS: 1200
+N_BINS: 30
+DECIMALS_PRECISION: 2
+ =========== CENTRAL LIMIT FOR GZ'^4 AND BANDS WITH 1 AND 2 SIGMAS ============  
+======== -2 Sigma Expeceted BG ========
+1.0918918918918918e-06
+======== -2 Sigma Expeceted BG ========
+1.0989989989989989e-06
+======== -2 Sigma Expeceted BG ========
+1.1061061061061061e-06
+======== -2 Sigma Expeceted BG ========
+1.1132132132132132e-06
+======== -1 Sigma Expeceted BG ========
+3.0818818818818815e-06
+======== -1 Sigma Expeceted BG ========
+3.0889889889889887e-06
+======== CENTRAL VALUE ========
+3.2879879879879875e-06
+======== CENTRAL VALUE ========
+3.295095095095095e-06
+======== +1 Sigma Expeceted BG ========
+Number of S+B pseudo experiments with NLLR = -inf 0
+5.277977977977978e-06
+======== +1 Sigma Expeceted BG ========
+Number of S+B pseudo experiments with NLLR = -inf 0
+5.285085085085085e-06
+======== +2 Sigma Expeceted BG ========
+Number of S+B pseudo experiments with NLLR = -inf 47980
+6.905505505505505e-06
+======== +2 Sigma Expeceted BG ========
+Number of S+B pseudo experiments with NLLR = -inf 48730
+6.9126126126126125e-06
