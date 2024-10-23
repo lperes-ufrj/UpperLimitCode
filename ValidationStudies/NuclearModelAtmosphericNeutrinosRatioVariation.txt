@@ -1,0 +1,216 @@
+====================================================
+
+Sample: b1p1_m05
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.10268
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.1036
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.10411
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.10365
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.10377
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.10398
+====================================================
+
+Sample: b1p1_m10
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.10268
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.1036
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.10411
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.10365
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.10377
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.10398
+====================================================
+
+Sample: b1p1_m20
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.10268
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.1036
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.10411
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.10365
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.10377
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.10398
+====================================================
+
+Sample: b1p1_m40
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.10268
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.1036
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.10411
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.10365
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.10377
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.10398
+====================================================
+
+Sample: b1p5_m05
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.07719
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.07766
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.07826
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.07735
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.07778
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.07757
+====================================================
+
+Sample: b1p5_m10
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.07719
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.07766
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.07826
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.07735
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.07778
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.07757
+====================================================
+
+Sample: b1p5_m20
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.07719
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.07766
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.07826
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.07735
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.07778
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.07757
+====================================================
+
+Sample: b1p5_m40
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.07719
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.07766
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.07826
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.07735
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.07778
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.07757
+====================================================
+
+Sample: b10_m05
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.08625
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.08692
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.08756
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.08657
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.08707
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.08681
+====================================================
+
+Sample: b10_m10
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.08625
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.08692
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.08756
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.08657
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.08707
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.08681
+====================================================
+
+Sample: b10_m20
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.05412
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.05445
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.05488
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.05419
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.05449
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.05449
+====================================================
+
+Sample: b10_m40
+
+====================================================
+
+Atmospheric Nuclear Model: hA_BR/CosSun_Atm_00a.txt
+RatioEvts Inside: 0.0599
+Atmospheric Nuclear Model: hA_LFG/CosSun_Atm_01a.txt
+RatioEvts Inside: 0.06008
+Atmospheric Nuclear Model: hA_ESF/CosSun_Atm_02a.txt
+RatioEvts Inside: 0.06065
+Atmospheric Nuclear Model: hN_BR/CosSun_Atm_00b.txt
+RatioEvts Inside: 0.05992
+Atmospheric Nuclear Model: hN_LFG/CosSun_Atm_01b.txt
+RatioEvts Inside: 0.06023
+Atmospheric Nuclear Model: hN_ESF/CosSun_Atm_02b.txt
+RatioEvts Inside: 0.06011
